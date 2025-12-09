@@ -1,6 +1,6 @@
 # Templates e Guia de Integração Zephyr Scale (Jira)
 
-## 📋 Template de Caso de Teste no Zephyr
+## Template de Caso de Teste no Zephyr
 
 ### Estrutura Básica
 
@@ -16,7 +16,7 @@ Labels: [shift-left, automated, regression]
 
 ---
 
-## 🎯 Casos de Teste Mapeados
+## Casos de Teste Mapeados
 
 ### 1. Validação Numérica
 
@@ -202,7 +202,7 @@ Labels: [shift-left, automated, regression]
 
 ---
 
-## 🔗 Mapeamento Pytest → Zephyr
+## Mapeamento Pytest para Zephyr
 
 ### Estrutura de Código
 
@@ -241,7 +241,7 @@ pytest -m smoke
 
 ---
 
-## 📊 Relatório de Resultados
+## Relatório de Resultados
 
 ### Formato de Saída para Zephyr
 
@@ -264,20 +264,20 @@ pytest -m smoke
 
 ---
 
-## 🎯 Matriz de Rastreabilidade
+## Matriz de Rastreabilidade
 
 | Test ID | Requisito | Componente | Prioridade | Status | Automação |
 |---------|-----------|------------|------------|--------|-----------|
-| CNPJ-T001 | REQ-001 | NumericValidator | Crítica | ✅ Pass | ✅ Sim |
-| CNPJ-T002 | REQ-001 | NumericValidator | Crítica | ✅ Pass | ✅ Sim |
-| CNPJ-T003 | REQ-002 | NumericValidator | Alta | ✅ Pass | ✅ Sim |
-| CNPJ-T010 | REQ-003 | AlphanumericValidator | Crítica | ✅ Pass | ✅ Sim |
-| CNPJ-T011 | REQ-003 | AlphanumericValidator | Alta | ✅ Pass | ✅ Sim |
-| CNPJ-T100 | REQ-004 | CNPJValidator | Crítica | ✅ Pass | ✅ Sim |
+| CNPJ-T001 | REQ-001 | NumericValidator | Crítica | Pass | Sim |
+| CNPJ-T002 | REQ-001 | NumericValidator | Crítica | Pass | Sim |
+| CNPJ-T003 | REQ-002 | NumericValidator | Alta | Pass | Sim |
+| CNPJ-T010 | REQ-003 | AlphanumericValidator | Crítica | Pass | Sim |
+| CNPJ-T011 | REQ-003 | AlphanumericValidator | Alta | Pass | Sim |
+| CNPJ-T100 | REQ-004 | CNPJValidator | Crítica | Pass | Sim |
 
 ---
 
-## 🔧 Configuração do Pytest para Zephyr
+## Configuração do Pytest para Zephyr
 
 ### conftest.py
 
@@ -304,7 +304,7 @@ def pytest_runtest_makereport(item, call):
 
 ---
 
-## 📈 Dashboards Sugeridos no Jira
+## Dashboards Sugeridos no Jira
 
 ### 1. Dashboard de Cobertura
 - Total de casos de teste: 100
@@ -327,7 +327,7 @@ def pytest_runtest_makereport(item, call):
 
 ---
 
-## 🚀 Automação de Sincronização
+## Automação de Sincronização
 
 ### Script de Integração (Exemplo)
 
@@ -367,14 +367,14 @@ def send_results_to_zephyr(test_results):
         )
         
         if response.status_code == 201:
-            print(f"✅ {result['test_id']} sincronizado")
+            print(f"[OK] {result['test_id']} sincronizado")
         else:
-            print(f"❌ Erro ao sincronizar {result['test_id']}")
+            print(f"[ERRO] Erro ao sincronizar {result['test_id']}")
 ```
 
 ---
 
-## 📝 Checklist de Integração
+## Checklist de Integração
 
 ### Antes de Começar
 - [ ] Conta Zephyr Scale configurada
@@ -396,7 +396,7 @@ def send_results_to_zephyr(test_results):
 
 ---
 
-## 💡 Dicas Importantes
+## Dicas Importantes
 
 1. **Nomenclatura Consistente**: Use sempre o padrão CNPJ-T### para IDs
 2. **Descrições Claras**: Docstrings devem explicar o objetivo do teste
@@ -406,7 +406,7 @@ def send_results_to_zephyr(test_results):
 
 ---
 
-## 📚 Recursos Adicionais
+## Recursos Adicionais
 
 - [Documentação Zephyr Scale API](https://support.smartbear.com/zephyr-scale-cloud/api-docs/)
 - [Pytest Documentation](https://docs.pytest.org/)

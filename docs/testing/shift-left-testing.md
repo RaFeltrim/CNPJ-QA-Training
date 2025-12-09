@@ -1,6 +1,6 @@
 # Guia de Shift Left Testing - Projeto CNPJ Validator
 
-## 📘 O que é Shift Left Testing?
+## O que é Shift Left Testing?
 
 **Shift Left Testing** é uma abordagem de teste que move as atividades de qualidade para as fases iniciais do ciclo de desenvolvimento de software (SDLC - Software Development Life Cycle). Em vez de testar apenas no final, testamos desde o início.
 
@@ -12,7 +12,7 @@
 4. **Feedback Rápido** - Desenvolvedores recebem feedback imediato
 5. **Qualidade é Responsabilidade de Todos** - Não apenas do time de QA
 
-## 🎯 Implementação no Projeto CNPJ Validator
+## Implementação no Projeto CNPJ Validator
 
 ### 1. Estrutura de Testes
 
@@ -52,31 +52,31 @@ tests/
   - `test_validate_with_both_validations()`
   - `test_format_and_clean_roundtrip()`
 
-## 🔄 Ciclo de Desenvolvimento com Shift Left
+## Ciclo de Desenvolvimento com Shift Left
 
 ### Fase 1: Planejamento
-- ✅ Definir critérios de aceitação
-- ✅ Criar casos de teste antes do código (TDD)
-- ✅ Revisar requisitos de qualidade
+- Definir critérios de aceitação
+- Criar casos de teste antes do código (TDD)
+- Revisar requisitos de qualidade
 
 ### Fase 2: Desenvolvimento
-- ✅ Escrever testes unitários
-- ✅ Implementar código
-- ✅ Executar testes localmente
-- ✅ Code review com foco em testabilidade
+- Escrever testes unitários
+- Implementar código
+- Executar testes localmente
+- Code review com foco em testabilidade
 
 ### Fase 3: Integração Contínua (CI)
-- ✅ Testes automatizados em cada commit
-- ✅ Análise de cobertura de código
-- ✅ Verificação de qualidade (linting)
-- ✅ Testes de segurança
+- Testes automatizados em cada commit
+- Análise de cobertura de código
+- Verificação de qualidade (linting)
+- Testes de segurança
 
 ### Fase 4: Feedback e Melhoria
-- ✅ Revisar métricas de qualidade
-- ✅ Adicionar testes para bugs encontrados
-- ✅ Refatorar código e testes
+- Revisar métricas de qualidade
+- Adicionar testes para bugs encontrados
+- Refatorar código e testes
 
-## 🧪 Executando os Testes
+## Executando os Testes
 
 ### Executar Todos os Testes
 ```bash
@@ -113,7 +113,7 @@ pytest -n auto
 pytest --html=reports/test_report.html
 ```
 
-## 📊 Métricas de Qualidade
+## Métricas de Qualidade
 
 ### Cobertura de Código
 - **Meta**: Mínimo 80%
@@ -121,13 +121,13 @@ pytest --html=reports/test_report.html
 - **Relatório**: `reports/coverage/index.html`
 
 ### Indicadores de Sucesso
-- ✅ Cobertura de código > 80%
-- ✅ Todos os testes passando
-- ✅ Tempo de execução < 5 segundos
-- ✅ Zero erros de linting
-- ✅ Zero vulnerabilidades de segurança
+- Cobertura de código > 80%
+- Todos os testes passando
+- Tempo de execução < 5 segundos
+- Zero erros de linting
+- Zero vulnerabilidades de segurança
 
-## 🏷️ Markers do Pytest
+## Markers do Pytest
 
 Use markers para organizar e filtrar testes:
 
@@ -153,7 +153,7 @@ def test_performance():
     pass
 ```
 
-## 🔗 Integração com Zephyr Scale (Jira)
+## Integração com Zephyr Scale (Jira)
 
 ### Configuração de Markers
 
@@ -179,7 +179,7 @@ def test_validate_correct_cnpj():
 | `@pytest.mark.integration` | Integração | Média | CI/CD |
 | `@pytest.mark.unit` | Unitário | Todas | Sempre |
 
-## 🚀 Automação e CI/CD
+## Automação e CI/CD
 
 ### Pre-commit Hooks (Executar antes de commit)
 ```bash
@@ -204,7 +204,7 @@ black cnpj_validator/
 1. Commit → 2. Testes Unitários → 3. Testes Integração → 4. Deploy
 ```
 
-## 📋 Checklist de Qualidade (Shift Left)
+## Checklist de Qualidade (Shift Left)
 
 ### Antes de Codificar
 - [ ] Requisitos estão claros?
@@ -230,7 +230,7 @@ black cnpj_validator/
 - [ ] Code review aprovado?
 - [ ] Testes de regressão OK?
 
-## 🎓 Boas Práticas
+## Boas Práticas
 
 ### 1. TDD (Test-Driven Development)
 ```python
@@ -250,11 +250,11 @@ def new_function():
 
 ### 2. Testes Descritivos
 ```python
-# ❌ Ruim
+# Evitar
 def test_cnpj():
     assert validate("123")
 
-# ✅ Bom
+# Recomendado
 def test_validate_should_reject_cnpj_shorter_than_14_digits():
     cnpj = "123"
     result = validator.validate(cnpj)
@@ -291,7 +291,7 @@ def test_something(validator, valid_cnpj):
     assert result['valid'] is True
 ```
 
-## 🔧 Ferramentas Utilizadas
+## Ferramentas Utilizadas
 
 ### Testes
 - **pytest**: Framework de testes
@@ -309,7 +309,7 @@ def test_something(validator, valid_cnpj):
 - **bandit**: Análise de segurança
 - **safety**: Vulnerabilidades em dependências
 
-## 📈 Monitoramento Contínuo
+## Monitoramento Contínuo
 
 ### Dashboards Recomendados
 - **Cobertura de Código**: Tendência ao longo do tempo
@@ -318,12 +318,12 @@ def test_something(validator, valid_cnpj):
 - **Defeitos Encontrados**: Por fase do ciclo
 
 ### Alertas
-- ❌ Cobertura < 80%
-- ❌ Testes falhando por > 1 hora
-- ❌ Vulnerabilidades de segurança
-- ❌ Performance degradada
+- Cobertura < 80%
+- Testes falhando por > 1 hora
+- Vulnerabilidades de segurança
+- Performance degradada
 
-## 🎯 Objetivos do Shift Left
+## Objetivos do Shift Left
 
 1. **Reduzir Custo**: Encontrar bugs cedo custa 10-100x menos
 2. **Aumentar Qualidade**: Menos bugs em produção
@@ -331,7 +331,7 @@ def test_something(validator, valid_cnpj):
 4. **Melhorar Colaboração**: Dev e QA trabalham juntos desde o início
 5. **Prevenir Problemas**: Não apenas detectá-los
 
-## 📚 Próximos Passos
+## Próximos Passos
 
 1. **Configurar CI/CD**: GitHub Actions, GitLab CI, Jenkins
 2. **Integrar com Zephyr**: Automatizar sincronização de resultados
@@ -339,7 +339,7 @@ def test_something(validator, valid_cnpj):
 4. **Performance Testing**: Testes de carga e stress
 5. **Security Testing**: SAST, DAST, análise de dependências
 
-## 🤝 Cultura de Qualidade
+## Cultura de Qualidade
 
 > "Qualidade não é uma atividade, é uma cultura." - Shift Left Philosophy
 
@@ -351,4 +351,4 @@ def test_something(validator, valid_cnpj):
 
 ---
 
-**Lembre-se**: Shift Left não significa eliminar testes tardios, mas complementá-los com testes precoces e contínuos! 🚀
+**Lembre-se**: Shift Left não significa eliminar testes tardios, mas complementá-los com testes precoces e contínuos.

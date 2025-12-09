@@ -2,11 +2,13 @@
 
 Este diretório contém toda a documentação técnica, guias de estudo e material de treinamento do projeto.
 
-> **Versão 2.0.0** - Agora com integração à API da Receita Federal!
+**Versão 2.0.0** - Inclui integração à API da Receita Federal.
 
-## 📂 Estrutura
+---
 
-### 📘 Guides (Guias Técnicos)
+## Estrutura
+
+### Guides (Guias Técnicos)
 
 Documentação técnica e referências sobre CNPJ:
 
@@ -14,7 +16,7 @@ Documentação técnica e referências sobre CNPJ:
 - **[guia-implementacao.md](guides/guia-implementacao.md)** - Guia prático de implementação com exemplos de código em múltiplas linguagens
 - **[glossario-referencias.md](guides/glossario-referencias.md)** - Glossário técnico completo e referências oficiais
 
-### 📚 Training (Material de Treinamento)
+### Training (Material de Treinamento)
 
 Material didático estruturado para aprendizado progressivo:
 
@@ -23,7 +25,7 @@ Material didático estruturado para aprendizado progressivo:
 - **[plano-estudo-6-semanas.md](training/plano-estudo-6-semanas.md)** - Plano híbrido de estudo (teoria + prática) para 6 semanas
 - **[plano-estudo.md](training/plano-estudo.md)** - Plano de estudo resumido
 
-### 🧪 Testing (Testes e QA)
+### Testing (Testes e QA)
 
 Documentação sobre testes, casos de teste e metodologias:
 
@@ -31,9 +33,11 @@ Documentação sobre testes, casos de teste e metodologias:
 - **[shift-left-testing.md](testing/shift-left-testing.md)** - Guia de Shift Left Testing aplicado ao projeto
 - **[zephyr-integration.md](testing/zephyr-integration.md)** - Integração com Zephyr Scale (Jira)
 
-## 🆕 API da Receita Federal
+---
 
-O projeto agora inclui integração com APIs públicas para consulta de dados cadastrais de empresas:
+## API da Receita Federal
+
+O projeto inclui integração com APIs públicas para consulta de dados cadastrais de empresas:
 
 ### Classes Disponíveis
 
@@ -80,33 +84,44 @@ A classe `CNPJData` contém:
 - Quadro societário
 - Informações do Simples Nacional/MEI
 
-## 🎯 Navegação Rápida
+---
+
+## Navegação Rápida
 
 ### Para iniciantes:
+
 1. Comece com o [Guia Completo CNPJ](guides/guia-completo-cnpj.md)
 2. Pratique com os [Exercícios](training/exercicios-praticos.md)
 3. Confira o [Gabarito](training/gabarito-exercicios.md) após resolver
 
 ### Para QA profissionais:
+
 1. [Casos de Teste Realistas](testing/casos-teste-realistas.md)
 2. [Shift Left Testing](testing/shift-left-testing.md)
 3. [Guia de Implementação](guides/guia-implementacao.md)
 
 ### Para desenvolvedores:
+
 1. [Guia de Implementação](guides/guia-implementacao.md)
 2. [Glossário e Referências](guides/glossario-referencias.md)
 3. Código fonte em `/src`
 
-## 📖 Metodologia
+---
+
+## Metodologia
 
 Este material utiliza a técnica pedagógica **Scaffolding** (Andaimes Educacionais), onde o suporte é gradualmente reduzido conforme o aluno desenvolve autonomia:
 
-- 🟢 **Nível 1**: Exemplo completo com todos os passos
-- 🟡 **Nível 2**: Estrutura guiada com dicas
-- 🟠 **Nível 3**: Modelo simplificado para relembrar
-- 🔴 **Nível 4**: Resolução totalmente independente
+| Nível | Descrição | Apoio |
+|-------|-----------|-------|
+| 🟢 Nível 1 | Exemplo completo com todos os passos | 100% |
+| 🟡 Nível 2 | Estrutura guiada com dicas | 70% |
+| 🟠 Nível 3 | Modelo simplificado para relembrar | 40% |
+| 🔴 Nível 4 | Resolução totalmente independente | 0% |
 
-## 🤝 Contribuindo
+---
+
+## Contribuindo
 
 Para contribuir com a documentação:
 

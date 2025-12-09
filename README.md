@@ -7,18 +7,22 @@
 
 Sistema completo de validação de CNPJ (Cadastro Nacional da Pessoa Jurídica) desenvolvido especificamente para **treinamento de profissionais de Quality Assurance**, combinando implementação funcional com material didático estruturado.
 
-## 🎯 Visão Geral
+---
+
+## Visão Geral
 
 Este repositório oferece:
 
 - **Biblioteca Python** para validação de CNPJ (numérico e alfanumérico)
-- **🆕 Integração com API da Receita Federal** para consulta de dados cadastrais
+- **Integração com API da Receita Federal** para consulta de dados cadastrais
 - **Material de treinamento completo** com metodologia pedagógica Scaffolding
 - **33 casos de teste realistas** com massa de dados
 - **Guias técnicos detalhados** sobre legislação e algoritmo de validação
 - **Integração CI/CD** com testes automatizados e Shift Left Testing
 
-## 🚀 Quick Start
+---
+
+## Início Rápido
 
 ### Instalação
 
@@ -48,12 +52,12 @@ validator = CNPJValidator()
 result = validator.validate("11.222.333/0001-81")
 
 if result['valid']:
-    print(f"✓ CNPJ válido: {result['cnpj_formatted']}")
+    print(f"CNPJ válido: {result['cnpj_formatted']}")
 else:
-    print(f"✗ Erros encontrados: {result['errors']}")
+    print(f"Erros encontrados: {result['errors']}")
 ```
 
-### 🆕 Consulta na Receita Federal
+### Consulta na Receita Federal
 
 ```python
 from src.cnpj_validator import ReceitaFederalAPI, ReceitaFederalAPIError
@@ -71,21 +75,23 @@ except ReceitaFederalAPIError as e:
     print(f"Erro: {e}")
 ```
 
-## 📂 Estrutura do Projeto
+---
 
-```
+## Estrutura do Projeto
+
+```text
 CNPJ-QA-Training/
 │
-├── 📁 src/                           # Código fonte principal
+├── src/                              # Código fonte principal
 │   └── cnpj_validator/               # Módulo de validação (pacote instalável)
 │       ├── __init__.py               # Exports do módulo
 │       ├── cnpj_validator.py         # Validador principal
-│       ├── receita_federal_api.py    # 🆕 Cliente API Receita Federal
+│       ├── receita_federal_api.py    # Cliente API Receita Federal
 │       └── validators/               # Validadores específicos
 │           ├── numeric_validator.py
 │           └── alphanumeric_validator.py
 │
-├── 📁 docs/                          # Documentação completa
+├── docs/                             # Documentação completa
 │   ├── guides/                       # Guias técnicos
 │   │   ├── guia-completo-cnpj.md
 │   │   ├── guia-implementacao.md
@@ -99,22 +105,22 @@ CNPJ-QA-Training/
 │       ├── shift-left-testing.md
 │       └── zephyr-integration.md
 │
-├── 📁 tests/                         # Testes automatizados (151 testes)
+├── tests/                            # Testes automatizados (151+ testes)
 │   ├── test_numeric_validator.py     # Testes do validador numérico
 │   ├── test_alphanumeric_validator.py # Testes do validador alfanumérico
 │   ├── test_integration.py           # Testes de integração
-│   └── test_receita_federal_api.py   # 🆕 Testes da API
+│   └── test_receita_federal_api.py   # Testes da API
 │
-├── 📁 examples/                      # Exemplos de uso
+├── examples/                         # Exemplos de uso
 │   ├── demo.py                       # Demonstração completa
-│   ├── demo_api_receita.py           # 🆕 Exemplos da API
+│   ├── demo_api_receita.py           # Exemplos da API
 │   └── quick-start.py                # Exemplo rápido
 │
-├── 📁 scripts/                       # Scripts auxiliares
+├── scripts/                          # Scripts auxiliares
 │   ├── run-tests.bat
 │   └── run-tests.sh
 │
-├── 📁 reports/                       # Relatórios de teste
+├── reports/                          # Relatórios de teste
 │   └── test_report.html              # Relatório HTML dos testes
 │
 ├── setup.py                          # Configuração do pacote
@@ -122,7 +128,9 @@ CNPJ-QA-Training/
 └── requirements.txt                  # Dependências
 ```
 
-## 📚 Documentação
+---
+
+## Documentação
 
 ### Para Iniciantes
 
@@ -142,7 +150,9 @@ CNPJ-QA-Training/
 2. **[Glossário Técnico](docs/guides/glossario-referencias.md)** - Terminologia e referências
 3. **[API Reference](docs/README.md)** - Documentação completa
 
-## 🧪 Executar Testes
+---
+
+## Executar Testes
 
 ```bash
 # Windows
@@ -156,18 +166,24 @@ chmod +x scripts/run-tests.sh
 pytest tests/ -v --cov=src/cnpj_validator
 ```
 
-## 🎓 Metodologia de Ensino
+---
+
+## Metodologia de Ensino
 
 Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógica que reduz gradualmente o suporte conforme o aluno desenvolve autonomia:
 
-- 🟢 **Nível 1**: Exemplo completo com todos os passos
-- 🟡 **Nível 2**: Estrutura guiada (70% de apoio)
-- 🟠 **Nível 3**: Modelo simplificado (40% de apoio)
-- 🔴 **Nível 4**: Resolução totalmente independente
+| Nível | Descrição | Apoio |
+|-------|-----------|-------|
+| 🟢 Nível 1 | Exemplo completo com todos os passos | 100% |
+| 🟡 Nível 2 | Estrutura guiada | 70% |
+| 🟠 Nível 3 | Modelo simplificado | 40% |
+| 🔴 Nível 4 | Resolução totalmente independente | 0% |
 
 **Resultado**: 32 exercícios progressivos que garantem aprendizado sólido e autonomia.
 
-## ✨ Funcionalidades
+---
+
+## Funcionalidades
 
 ### Validador Numérico
 
@@ -191,7 +207,7 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Métodos de conveniência (format, clean, get_info)
 - Tratamento robusto de erros
 
-### 🆕 API da Receita Federal
+### API da Receita Federal
 
 - Consulta de dados cadastrais completos
 - Verificação de situação cadastral (ATIVA, BAIXADA, etc.)
@@ -200,7 +216,9 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Suporte a BrasilAPI e ReceitaWS
 - Rate limiting automático e retry com backoff
 
-## 📊 Casos de Teste
+---
+
+## Casos de Teste
 
 33 casos de teste organizados por categoria:
 
@@ -213,7 +231,9 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 | Alfanumérico | 4 | Média |
 | Performance | 3 | Baixa |
 
-## 🛠️ Tecnologias
+---
+
+## Tecnologias
 
 - **Python 3.8 - 3.12** (linguagem principal)
 - **requests** (requisições HTTP para API)
@@ -222,7 +242,9 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - **GitHub Actions** (CI/CD)
 - **Markdown** (documentação)
 
-## 🤝 Contribuindo
+---
+
+## Contribuindo
 
 Contribuições são bem-vindas! Para contribuir:
 
@@ -232,35 +254,46 @@ Contribuições são bem-vindas! Para contribuir:
 4. Push para a branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
 
-## 📋 Plano de Desenvolvimento
+---
+
+## Plano de Desenvolvimento
 
 - [x] Validador numérico completo
 - [x] Validador alfanumérico
 - [x] Material de treinamento estruturado
 - [x] 33 casos de teste realistas
 - [x] CI/CD com GitHub Actions
-- [x] **Integração com API da Receita Federal** ✅
+- [x] Integração com API da Receita Federal
 - [ ] Validador JavaScript/TypeScript
 - [ ] CLI (Command Line Interface)
 - [ ] Publicação no PyPI
 
-## 📄 Licença
+---
+
+## Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-## 👨‍💻 Autor
+---
 
-**Rafael Feltrim**
+## Autor
+
+### Rafael Feltrim
+
 - GitHub: [@RaFeltrim](https://github.com/RaFeltrim)
 - LinkedIn: [Rafael Feltrim](https://www.linkedin.com/in/rafael-feltrim)
 
-## 🙏 Agradecimentos
+---
+
+## Agradecimentos
 
 - Receita Federal do Brasil (documentação oficial)
 - Comunidade de QA brasileira
 - Contribuidores do projeto
 
-## 📞 Suporte
+---
+
+## Suporte
 
 - **Issues**: [GitHub Issues](https://github.com/RaFeltrim/CNPJ-QA-Training/issues)
 - **Discussões**: [GitHub Discussions](https://github.com/RaFeltrim/CNPJ-QA-Training/discussions)
@@ -268,6 +301,6 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ---
 
-**⭐ Se este projeto foi útil, considere dar uma estrela no GitHub!**
+Se este projeto foi útil, considere dar uma estrela no GitHub.
 
-**Desenvolvido com ❤️ para a comunidade de QA brasileira**
+Desenvolvido para a comunidade de QA brasileira.

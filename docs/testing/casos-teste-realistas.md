@@ -1,4 +1,4 @@
-# 5. Casos de Teste Realistas - Validação de CNPJ
+﻿# 5. Casos de Teste Realistas - Validação de CNPJ
 
 ## Documento 5: Cenários de Teste Práticos e Massa de Dados
 
@@ -58,7 +58,7 @@ Casos de Teste
 
 **Entrada**: `11.222.333/0001-81`
 
-**Resultado Esperado**: ✅ **VÁLIDO**
+**Resultado Esperado**: **VÁLIDO**
 
 **Motivo**: 
 - Raiz: 11.222.333 (formato correto)
@@ -69,7 +69,7 @@ Casos de Teste
 ```
 Primeiro DV: 8
 Segundo DV: 1
-CNPJ: 11.222.333/0001-81 ✓
+CNPJ: 11.222.333/0001-81 (verificado)
 ```
 
 ---
@@ -83,7 +83,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `12.345.678/0002-95`
 
-**Resultado Esperado**: ✅ **VÁLIDO**
+**Resultado Esperado**: **VÁLIDO**
 
 **Motivo**:
 - Mesma raiz da matriz (12.345.678)
@@ -101,7 +101,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11222333000181`
 
-**Resultado Esperado**: ✅ **VÁLIDO**
+**Resultado Esperado**: **VÁLIDO**
 
 **Motivo**:
 - CNPJ deve ser validado mesmo sem formatação
@@ -124,7 +124,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - Filial 2: `98.765.432/0003-39`
 - Filial 100: `98.765.432/0100-09`
 
-**Resultado Esperado**: ✅ Todos **VÁLIDOS**
+**Resultado Esperado**: **VÁLIDO** Todos **VÁLIDOS**
 
 **Motivo**:
 - Raiz idêntica (98.765.432)
@@ -145,7 +145,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - Petrobras: `33.000.167/0001-01`
 - Vale: `33.592.510/0001-54`
 
-**Resultado Esperado**: ✅ **VÁLIDOS**
+**Resultado Esperado**: **VÁLIDO** **VÁLIDOS**
 
 **Observação**: Use CNPJs reais disponíveis em sites oficiais para testes mais realistas
 
@@ -165,7 +165,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - `1122233300018` (13 dígitos sem formatação)
 - `11.222.333/001-81` (12 dígitos)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**: CNPJ deve ter exatamente 14 caracteres numéricos
 
@@ -184,7 +184,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - `11.222.333/0001-811` (15 dígitos)
 - `112223330001811` (15 dígitos sem formatação)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**: CNPJ excede os 14 caracteres permitidos
 
@@ -205,7 +205,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - `11.222.333/0001-8#` (símbolo especial)
 - `11.222.333/0001-8 ` (espaço no final)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**: CNPJ numérico aceita apenas dígitos 0-9 (até julho/2026)
 
@@ -226,8 +226,8 @@ CNPJ: 11.222.333/0001-81 ✓
 - `11-222-333/0001-81` (hífens no lugar de pontos)
 
 **Resultado Esperado**: 
-- **Opção 1**: ❌ **INVÁLIDO** (validação rígida)
-- **Opção 2**: ✅ **VÁLIDO** após normalização (remover formatação)
+- **Opção 1**: **INVÁLIDO** (validação rígida)
+- **Opção 2**: **VÁLIDO** após normalização (remover formatação)
 
 **Recomendação**: Implementar normalização automática antes da validação
 
@@ -246,7 +246,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - `undefined`
 - `   ` (apenas espaços)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Mensagem Sugerida**: "CNPJ não pode estar vazio."
 
@@ -263,7 +263,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/0001-91` (correto seria -81)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**:
 - Primeiro DV correto: 8
@@ -283,7 +283,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/0001-82` (correto seria -81)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**:
 - Primeiro DV correto: 8
@@ -303,7 +303,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/0001-00` (correto seria -81)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**:
 - DVs corretos: 81
@@ -322,7 +322,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `00.000.000/0001-91` (primeiro DV com resto 0)
 
-**Resultado Esperado**: ✅ **VÁLIDO**
+**Resultado Esperado**: **VÁLIDO**
 
 **Motivo**:
 - Quando resto da divisão = 0 ou 1, DV = 0
@@ -341,7 +341,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/0010-81` (correto: /0001-)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**:
 - Ordem alterada de 0001 para 0010
@@ -365,7 +365,7 @@ CNPJ: 11.222.333/0001-81 ✓
 - `22.222.222/2222-22`
 - `99.999.999/9999-99`
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**:
 - CNPJs com dígitos repetidos não são emitidos pela Receita
@@ -388,8 +388,8 @@ CNPJ: 11.222.333/0001-81 ✓
 - `98.765.432/1098-XX` (sequência decrescente)
 
 **Resultado Esperado**: 
-- **Opção 1**: ❌ **INVÁLIDO** (regra de negócio)
-- **Opção 2**: ✅ **VÁLIDO** se DVs corretos (apenas validação matemática)
+- **Opção 1**: **INVÁLIDO** (regra de negócio)
+- **Opção 2**: **VÁLIDO** se DVs corretos (apenas validação matemática)
 
 **Recomendação**: Implementar como regra de negócio adicional (flag de alerta)
 
@@ -404,7 +404,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/0001-81`
 
-**Resultado Esperado**: ✅ **VÁLIDO** + Flag "É Matriz"
+**Resultado Esperado**: **VÁLIDO** + Flag "É Matriz"
 
 **Observação**: Útil para lógica de negócio que diferencia matriz de filial
 
@@ -419,7 +419,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `11.222.333/9999-XX` (calcular DVs)
 
-**Resultado Esperado**: ✅ **VÁLIDO** (se DVs corretos)
+**Resultado Esperado**: **VÁLIDO** (se DVs corretos)
 
 **Motivo**: Sistema deve suportar até 9999 filiais por raiz
 
@@ -435,8 +435,8 @@ CNPJ: 11.222.333/0001-81 ✓
 **Entrada**: `00.000.000/0001-91`
 
 **Resultado Esperado**: 
-- **Matematicamente**: ✅ **VÁLIDO** (se DVs corretos)
-- **Receita Federal**: ❌ **INVÁLIDO** (não emitidos)
+- **Matematicamente**: **VÁLIDO** (se DVs corretos)
+- **Receita Federal**: **INVÁLIDO** (não emitidos)
 
 **Recomendação**: Implementar validação de negócio adicional
 
@@ -453,7 +453,7 @@ CNPJ: 11.222.333/0001-81 ✓
 
 **Entrada**: `12.ABC.345/01DE-35`
 
-**Resultado Esperado**: ✅ **VÁLIDO** (após jul/2026)
+**Resultado Esperado**: **VÁLIDO** (após jul/2026)
 
 **Motivo**:
 - Raiz: 12.ABC.345 (alfanumérico)
@@ -466,7 +466,7 @@ Caractere:  1  2  A  B  C  3  4  5  0  1  D  E
 Valor:      1  2  17 18 19 3  4  5  0  1  20 21
 Primeiro DV: 3
 Segundo DV: 5
-CNPJ: 12.ABC.345/01DE-35 ✓
+CNPJ: 12.ABC.345/01DE-35 (verificado)
 ```
 
 ---
@@ -481,8 +481,8 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 **Entrada**: `12.abc.345/01de-35` (minúsculas)
 
 **Resultado Esperado**: 
-- **Opção 1**: ✅ **VÁLIDO** após normalizar para maiúsculas
-- **Opção 2**: ❌ **INVÁLIDO** (exigir maiúsculas)
+- **Opção 1**: **VÁLIDO** após normalizar para maiúsculas
+- **Opção 2**: **INVÁLIDO** (exigir maiúsculas)
 
 **Recomendação**: Implementar conversão automática para UPPERCASE antes da validação
 
@@ -500,7 +500,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 - `12.ÁBC.345/01DE-35` (acentuação não permitida)
 - `12.A C.345/01DE-35` (espaço não permitido)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**: Apenas A-Z e 0-9 são permitidos na raiz e ordem
 
@@ -517,7 +517,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 
 **Entrada**: `12.ABC.345/01DE-AB` (DVs com letras)
 
-**Resultado Esperado**: ❌ **INVÁLIDO**
+**Resultado Esperado**: **INVÁLIDO**
 
 **Motivo**: Segundo a IN 2.229/2024, os DVs permanecem **numéricos** mesmo no formato alfanumérico
 
@@ -536,7 +536,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 - `11.222.333/0001-81` (numérico - empresa antiga)
 - `12.ABC.345/01DE-35` (alfanumérico - empresa nova)
 
-**Resultado Esperado**: ✅ Ambos **VÁLIDOS**
+**Resultado Esperado**: **VÁLIDO** Ambos **VÁLIDOS**
 
 **Motivo**: Período de transição (2026-2028+) exige suporte a ambos formatos
 
@@ -556,7 +556,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 **Entrada**: CNPJ válido de empresa ativa
 
 **Resultado Esperado**: 
-- ✅ CNPJ existe na base
+- **VÁLIDO** CNPJ existe na base
 - Status: ATIVA
 - Retorna: Razão social, endereço, CNAE, data de abertura
 
@@ -574,7 +574,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 **Entrada**: CNPJ válido de empresa inativa
 
 **Resultado Esperado**:
-- ✅ CNPJ existe na base
+- **VÁLIDO** CNPJ existe na base
 - Status: BAIXADA / SUSPENSA / INAPTA
 - Retorna: Data de encerramento, motivo
 
@@ -684,7 +684,7 @@ CNPJ: 12.ABC.345/01DE-35 ✓
 **Entrada**: String com 10.000 caracteres (simulando ataque)
 
 **Resultado Esperado**:
-- ❌ INVÁLIDO detectado rapidamente (< 10ms)
+- **INVÁLIDO** INVÁLIDO detectado rapidamente (< 10ms)
 - Sem crash ou travamento
 - Memória não dispara
 
@@ -836,17 +836,17 @@ A1.B2C.3D4/E5F6-72
 Validar implementação de algoritmo de validação de CNPJ (numérico e alfanumérico)
 
 ### 13.2 Escopo
-- ✅ Validação de estrutura (14 caracteres)
-- ✅ Cálculo de dígitos verificadores (Módulo 11)
-- ✅ Conversão ASCII (formato alfanumérico)
-- ✅ Normalização de entrada (remover formatação)
-- ✅ Validação de caracteres permitidos
-- ✅ Detecção de CNPJs inválidos (todos dígitos iguais)
+- **VÁLIDO** Validação de estrutura (14 caracteres)
+- **VÁLIDO** Cálculo de dígitos verificadores (Módulo 11)
+- **VÁLIDO** Conversão ASCII (formato alfanumérico)
+- **VÁLIDO** Normalização de entrada (remover formatação)
+- **VÁLIDO** Validação de caracteres permitidos
+- **VÁLIDO** Detecção de CNPJs inválidos (todos dígitos iguais)
 
 ### 13.3 Fora de Escopo
-- ❌ Consulta real à Receita Federal (mock)
-- ❌ Validação de status da empresa (ativa/inativa)
-- ❌ Armazenamento de dados (LGPD)
+- **INVÁLIDO** Consulta real à Receita Federal (mock)
+- **INVÁLIDO** Validação de status da empresa (ativa/inativa)
+- **INVÁLIDO** Armazenamento de dados (LGPD)
 
 ### 13.4 Ambiente de Teste
 - **Sistema Operacional**: Windows 11, Ubuntu 22.04, macOS 13+
@@ -855,11 +855,11 @@ Validar implementação de algoritmo de validação de CNPJ (numérico e alfanum
 - **Cobertura Mínima**: 95%
 
 ### 13.5 Critérios de Aceite
-- ✅ Todos os casos de teste P0 (alta prioridade) passando
-- ✅ 90%+ dos casos P1 (média prioridade) passando
-- ✅ Cobertura de código > 95%
-- ✅ Performance: validação < 5ms por CNPJ
-- ✅ Sem falsos positivos ou negativos
+- **VÁLIDO** Todos os casos de teste P0 (alta prioridade) passando
+- **VÁLIDO** 90%+ dos casos P1 (média prioridade) passando
+- **VÁLIDO** Cobertura de código > 95%
+- **VÁLIDO** Performance: validação < 5ms por CNPJ
+- **VÁLIDO** Sem falsos positivos ou negativos
 
 ### 13.6 Riscos
 - ⚠️ API da Receita pode estar indisponível (mitigar com mock)
@@ -981,7 +981,7 @@ CT-016 Rejeitar Todos Dígitos Iguais
 
 #### Validações de UX
 - [ ] Mensagens de erro são claras e específicas?
-- [ ] Feedback visual (✓ válido / ✗ inválido) está visível?
+- [ ] Feedback visual ((verificado) válido / ✗ inválido) está visível?
 - [ ] Máscara de entrada funciona corretamente?
 - [ ] Campo não aceita mais de 14 caracteres (sem formatação)?
 
@@ -1016,11 +1016,11 @@ CT-016 Rejeitar Todos Dígitos Iguais
 
 Este documento fornece uma base sólida de **casos de teste realistas** para validação de CNPJ. Use-o como:
 
-✅ **Referência** ao criar planos de teste  
-✅ **Checklist** durante execução de testes  
-✅ **Base** para automação de testes  
-✅ **Guia** para massa de dados de teste  
-✅ **Material de treinamento** para novos QAs  
+**VÁLIDO** **Referência** ao criar planos de teste  
+**VÁLIDO** **Checklist** durante execução de testes  
+**VÁLIDO** **Base** para automação de testes  
+**VÁLIDO** **Guia** para massa de dados de teste  
+**VÁLIDO** **Material de treinamento** para novos QAs  
 
 **Lembre-se**: Testes abrangentes garantem qualidade, mas o entendimento profundo do algoritmo é essencial para criar casos de teste eficazes.
 

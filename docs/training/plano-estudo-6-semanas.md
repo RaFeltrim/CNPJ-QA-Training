@@ -57,7 +57,7 @@ Este plano segue uma progressão lógica de aprendizado ponta a ponta:
 
 **Entregável da Semana**: 5 CNPJs alfanuméricos + documento comparativo
 
-**✅ Checkpoint Semana 2**: Você deve ser capaz de calcular **qualquer CNPJ** (numérico ou alfanumérico) manualmente sem consultar o guia.
+**Checkpoint Semana 2**: Você deve ser capaz de calcular **qualquer CNPJ** (numérico ou alfanumérico) manualmente sem consultar o guia.
 
 ---
 
@@ -80,7 +80,7 @@ Este plano segue uma progressão lógica de aprendizado ponta a ponta:
 - 5 casos de teste originais criados por você
 - Mapa mental de categorias de teste
 
-**✅ Checkpoint Semana 3**: Você compreende as metodologias de QA e sabe projetar casos de teste efetivos.
+**Checkpoint Semana 3**: Você compreende as metodologias de QA e sabe projetar casos de teste efetivos.
 
 ---
 
@@ -108,7 +108,7 @@ meu-validador-cnpj/
 
 **Entregável da Semana**: Repositório pessoal com validador funcional + testes
 
-**✅ Checkpoint Semana 4**: Você tem seu próprio validador de CNPJ funcionando.
+**Checkpoint Semana 4**: Você tem seu próprio validador de CNPJ funcionando.
 
 ---
 
@@ -163,7 +163,7 @@ python examples/demo_api_receita.py
 - Documento comparativo (seu código vs projeto base)
 - Lista de aprendizados
 
-**✅ Checkpoint Semana 5**: Você executou o projeto completo e compreende sua arquitetura.
+**Checkpoint Semana 5**: Você executou o projeto completo e compreende sua arquitetura.
 
 ---
 
@@ -217,10 +217,10 @@ if resultado['valid']:
 - Documentação LGPD
 - Apresentação final do projeto
 
-**✅ Checkpoint Final**: Você domina validação de CNPJ de ponta a ponta!
+**Checkpoint Final**: Você domina validação de CNPJ de ponta a ponta!
 |-----|-----------|------------|---------|-------|
 | **Seg** | Formulário HTML + máscara CNPJ | HTML, CSS, JS | Form responsivo com validação | 2h |
-| **Ter** | Feedback visual (✓ válido / ✗ inválido) | CSS, JS | UX com estados claros | 2h |
+| **Ter** | Feedback visual (válido / inválido) | CSS, JS | UX com estados claros | 2h |
 | **Qua** | Integração com validadores TS | TypeScript | Form funcional + validação real-time | 2h |
 | **Qui** | Service de consulta (mock Receita) | TypeScript | Mock de retorno de dados | 2h |
 | **Sex** | Deploy + documentação de uso | Vercel/Netlify | Link público + guia de uso | 2h |
@@ -409,26 +409,26 @@ Legenda: ████ = 10 horas de estudo | ⭐ = Etapa chave do projeto
 
 Para considerar o plano concluído com êxito:
 
-### ✅ Critérios Teóricos
+### (Concluido) Critérios Teóricos
 
 - [ ] Calcular manualmente qualquer CNPJ numérico sem consultar material
 - [ ] Calcular manualmente qualquer CNPJ alfanumérico
 - [ ] Explicar o algoritmo Módulo 11 para um colega
 
-### ✅ Critérios de QA
+### (Concluido) Critérios de QA
 
 - [ ] Criar casos de teste efetivos
 - [ ] Categorizar testes corretamente
 - [ ] Aplicar metodologia Shift Left
 
-### ✅ Critérios Técnicos
+### (Concluido) Critérios Técnicos
 
 - [ ] Seu validador próprio funcionando
 - [ ] Projeto CNPJ-QA-Training executado com sucesso
 - [ ] Testes passando (seu código + projeto base)
 - [ ] API da Receita Federal utilizada
 
-### ✅ Critérios de Documentação
+### (Concluido) Critérios de Documentação
 
 - [ ] README do seu projeto
 - [ ] Casos de teste documentados
