@@ -6,10 +6,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="cnpj-validator",
-    version="1.0.0",
+    version="2.0.0",
     author="Rafael Feltrim",
     author_email="",
-    description="Sistema completo de validação de CNPJ para treinamento em QA",
+    description="Sistema completo de validação de CNPJ com integração à API da Receita Federal",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/RaFeltrim/CNPJ-QA-Training",
@@ -27,14 +27,16 @@ setup(
         "Topic :: Software Development :: Quality Assurance",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
-    python_requires=">=3.7",
-    install_requires=[],
+    python_requires=">=3.8",
+    install_requires=[
+        "requests>=2.28.0",
+    ],
     extras_require={
         "dev": [
             "pytest>=7.0.0",

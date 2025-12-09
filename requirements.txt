@@ -1,7 +1,14 @@
 # Dependências do projeto CNPJ Validator
 
-# Este projeto usa apenas bibliotecas padrão do Python para funcionalidade básica
-# Python >= 3.7
+# Este projeto usa bibliotecas padrão do Python para funcionalidade básica
+# Python >= 3.8 (compatível até 3.12)
+
+# ============================================================================
+# DEPENDÊNCIAS DE PRODUÇÃO
+# ============================================================================
+
+# Para requisições HTTP mais robustas (opcional, fallback usa urllib)
+requests>=2.28.0
 
 # ============================================================================
 # DEPENDÊNCIAS DE DESENVOLVIMENTO E TESTES (Shift Left Testing)
