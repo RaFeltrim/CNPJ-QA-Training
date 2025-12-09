@@ -1,0 +1,19 @@
+# Configuração de cobertura de código
+[run]
+source = cnpj_validator
+omit =
+    */tests/*
+    */test_*.py
+    */__pycache__/*
+    */venv/*
+    */env/*
+    */site-packages/*
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+fail_under = 80
+
+[html]
+directory = reports/coverage

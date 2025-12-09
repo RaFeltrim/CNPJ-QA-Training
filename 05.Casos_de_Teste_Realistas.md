@@ -35,14 +35,14 @@ Cada caso de teste contém:
 ### 2.2 Categorias de Teste
 
 ```
-📁 Casos de Teste
-├── 🟢 Formato Válido (Happy Path)
-├── 🔴 Formato Inválido (Validação de Estrutura)
-├── 🟡 Dígitos Verificadores
-├── 🟠 CNPJs Especiais e Edge Cases
-├── 🔵 Formato Alfanumérico (Futuro)
-├── 🟣 Integração com API da Receita
-└── ⚫ Testes de Performance e Carga
+Casos de Teste
+├── Formato Válido (Happy Path)
+├── Formato Inválido (Validação de Estrutura)
+├── Dígitos Verificadores
+├── CNPJs Especiais e Edge Cases
+├── Formato Alfanumérico (Futuro)
+├── Integração com API da Receita
+└── Testes de Performance e Carga
 ```
 
 ---

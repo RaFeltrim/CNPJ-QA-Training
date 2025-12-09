@@ -1,6 +1,6 @@
 # 3. Gabarito - Exercícios CNPJ
 
-## 🔒 Documento Protegido - Respostas Completas
+## Documento Protegido - Respostas Completas
 
 **Atenção**: Este documento contém todas as respostas dos exercícios. Use-o apenas após completar suas tentativas de resolução.
 
@@ -8,20 +8,20 @@
 
 ## INSTRUÇÕES DE USO
 
-### ✅ Quando Usar Este Gabarito
+### Quando Usar Este Gabarito
 
-- ✓ Após completar **todos** os exercícios do documento de treinamento
-- ✓ Para **conferir** suas respostas e entender erros
-- ✓ Para **aprender** com as explicações detalhadas
-- ✓ Para **revisar** conceitos que ainda não dominou
+- Após completar **todos** os exercícios do documento de treinamento
+- Para **conferir** suas respostas e entender erros
+- Para **aprender** com as explicações detalhadas
+- Para **revisar** conceitos que ainda não dominou
 
-### ❌ Quando NÃO Usar
+### Quando NÃO Usar
 
-- ✗ Antes de tentar resolver os exercícios
-- ✗ Como "atalho" para pular o aprendizado
-- ✗ Sem documentar suas próprias tentativas primeiro
+- Antes de tentar resolver os exercícios
+- Como "atalho" para pular o aprendizado
+- Sem documentar suas próprias tentativas primeiro
 
-### 💡 Como Aproveitar Melhor
+### Como Aproveitar Melhor
 
 1. **Compare sua resposta** com o gabarito
 2. **Entenda o erro** (se houver) - não apenas decore
