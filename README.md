@@ -76,11 +76,14 @@ except ReceitaFederalAPIError as e:
 ```
 CNPJ-QA-Training/
 │
-├── 📁 src/                           # Código fonte
-│   └── cnpj_validator/               # Módulo de validação
+├── 📁 src/                           # Código fonte principal
+│   └── cnpj_validator/               # Módulo de validação (pacote instalável)
+│       ├── __init__.py               # Exports do módulo
 │       ├── cnpj_validator.py         # Validador principal
 │       ├── receita_federal_api.py    # 🆕 Cliente API Receita Federal
 │       └── validators/               # Validadores específicos
+│           ├── numeric_validator.py
+│           └── alphanumeric_validator.py
 │
 ├── 📁 docs/                          # Documentação completa
 │   ├── guides/                       # Guias técnicos
@@ -96,19 +99,27 @@ CNPJ-QA-Training/
 │       ├── shift-left-testing.md
 │       └── zephyr-integration.md
 │
-├── 📁 tests/                         # Testes automatizados
-│   ├── test_numeric_validator.py
-│   ├── test_alphanumeric_validator.py
-│   └── test_integration.py
+├── 📁 tests/                         # Testes automatizados (151 testes)
+│   ├── test_numeric_validator.py     # Testes do validador numérico
+│   ├── test_alphanumeric_validator.py # Testes do validador alfanumérico
+│   ├── test_integration.py           # Testes de integração
+│   └── test_receita_federal_api.py   # 🆕 Testes da API
 │
 ├── 📁 examples/                      # Exemplos de uso
 │   ├── demo.py                       # Demonstração completa
 │   ├── demo_api_receita.py           # 🆕 Exemplos da API
 │   └── quick-start.py                # Exemplo rápido
 │
-└── 📁 scripts/                       # Scripts auxiliares
-    ├── run-tests.bat
-    └── run-tests.sh
+├── 📁 scripts/                       # Scripts auxiliares
+│   ├── run-tests.bat
+│   └── run-tests.sh
+│
+├── 📁 reports/                       # Relatórios de teste
+│   └── test_report.html              # Relatório HTML dos testes
+│
+├── setup.py                          # Configuração do pacote
+├── pytest.ini                        # Configuração do pytest
+└── requirements.txt                  # Dependências
 ```
 
 ## 📚 Documentação
