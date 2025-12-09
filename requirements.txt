@@ -29,7 +29,18 @@ flake8>=6.0.0
 black>=23.3.0
 mypy>=1.3.0
 
-# Segurança (Security Testing - Shift Left)
+# ============================================================================
+# API REST COM SWAGGER (FastAPI)
+# ============================================================================
+
+# Framework web moderno com Swagger/OpenAPI automático
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+
+# ============================================================================
+# SEGURANÇA (Security Testing - Shift Left)
+# ============================================================================
 bandit>=1.7.5
 safety>=2.3.5
 
