@@ -77,3 +77,10 @@ dmypy.json
 # Environments
 .env
 .venv
+
+# Test reports (HTML gerados dinamicamente)
+reports/*.html
+reports/coverage/
+
+# Logs
+*.log
