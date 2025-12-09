@@ -1,5 +1,5 @@
-"""
 """CNPJ Validator - Sistema de Validação de CNPJ
+
 Módulo principal para validação de números de CNPJ (Cadastro Nacional de Pessoa Jurídica)
 
 Compatível com Python 3.8+
