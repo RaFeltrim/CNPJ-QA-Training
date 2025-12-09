@@ -1,0 +1,38 @@
+# Dependências do projeto CNPJ Validator
+
+# Este projeto usa apenas bibliotecas padrão do Python para funcionalidade básica
+# Python >= 3.7
+
+# ============================================================================
+# DEPENDÊNCIAS DE DESENVOLVIMENTO E TESTES (Shift Left Testing)
+# ============================================================================
+
+# Framework de testes
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-html>=3.2.0
+pytest-xdist>=3.3.0
+
+# Cobertura de código
+coverage>=7.2.0
+
+# Linters e formatação (Code Quality - Shift Left)
+pylint>=2.17.0
+flake8>=6.0.0
+black>=23.3.0
+mypy>=1.3.0
+
+# Segurança (Security Testing - Shift Left)
+bandit>=1.7.5
+safety>=2.3.5
+
+# Integração com Jira/Zephyr
+pytest-jira>=0.4.5
+pytest-testrail>=2.9.0
+
+# Relatórios e documentação
+pytest-benchmark>=4.0.0
+allure-pytest>=2.13.2
+
+# Utilitários
+python-dotenv>=1.0.0

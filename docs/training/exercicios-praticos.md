@@ -17,13 +17,13 @@ Este documento é complementar ao **1. Guia_CNPJ**. Aqui você encontrará:
 
 ---
 
-### 📚 Como Usar Este Documento
+### Como Usar Este Documento
 
 **IMPORTANTE**: Este é um documento de **TREINAMENTO** com exercícios para prática.
 
-✅ **Metodologia progressiva aplicada** - Do básico ao avançado  
-📝 **Exercícios estruturados** - Com níveis de dificuldade crescente  
-🎯 **Gabarito separado** - Disponível após conclusão dos exercícios  
+- **Metodologia progressiva aplicada** - Do básico ao avançado  
+- **Exercícios estruturados** - Com níveis de dificuldade crescente  
+- **Gabarito separado** - Disponível após conclusão dos exercícios  
 
 **Objetivo**: Desenvolver sua autonomia através de uma metodologia pedagógica comprovada, onde o suporte é gradualmente removido para que você construa confiança e competência.
 
@@ -31,7 +31,7 @@ Este documento é complementar ao **1. Guia_CNPJ**. Aqui você encontrará:
 
 ## 2. METODOLOGIA DE APRENDIZADO PROGRESSIVO
 
-### 🎓 Entendendo a Abordagem Pedagógica
+### Entendendo a Abordagem Pedagógica
 
 Este documento utiliza a técnica de **Scaffolding** (Andaimes Educacionais), uma metodologia cientificamente comprovada onde:
 
@@ -40,7 +40,7 @@ Este documento utiliza a técnica de **Scaffolding** (Andaimes Educacionais), um
 3. **Autonomia progressiva** - Resolve com menos dicas
 4. **Independência completa** - Aplica o conhecimento sozinho
 
-### 🎯 Sistema de Níveis
+### Sistema de Níveis
 
 Utilizamos 4 níveis de suporte identificados por cores:
 
@@ -51,7 +51,7 @@ Utilizamos 4 níveis de suporte identificados por cores:
 | **Nível 3** | 🟠 | **Modelo Simplificado** | Formato básico para você relembrar o processo |
 | **Nível 4** | 🔴 | **Resolução Independente** | Apenas o enunciado - resolva sozinho |
 
-### 📊 Como a Progressão Funciona
+### Como a Progressão Funciona
 
 ```
 Nível de Suporte ↓              Autonomia do Aluno ↑
@@ -62,27 +62,27 @@ Nível de Suporte ↓              Autonomia do Aluno ↑
 🔴   0% Apoio  →  Aplica conhecimento de forma autônoma
 ```
 
-### 💡 Por Que Esta Metodologia Funciona?
+### Por Que Esta Metodologia Funciona?
 
 **Baseado em pesquisas de neurociência e pedagogia:**
 
-1. **Reduz Frustração Inicial** 🧠
+1. **Reduz Frustração Inicial**
    - Começar com exemplos completos evita desistência
    - Você entende o "porquê" antes de fazer sozinho
 
-2. **Aumenta Retenção** 📈
+2. **Aumenta Retenção**
    - Prática ativa aumenta memorização em 50%
    - Repetição espaçada com menos apoio consolida aprendizado
 
-3. **Desenvolve Confiança** 💪
+3. **Desenvolve Confiança**
    - Cada nível prepara para o próximo
    - Sucessos graduais constroem autoeficácia
 
-4. **Cria Autonomia Real** 🎓
+4. **Cria Autonomia Real**
    - Ao final, você não depende de modelos
    - Consegue aplicar em situações novas
 
-### 📋 Exercícios com Metodologia Aplicada
+### Exercícios com Metodologia Aplicada
 
 Este documento possui **7 conjuntos de exercícios** com progressão:
 
@@ -96,7 +96,7 @@ Este documento possui **7 conjuntos de exercícios** com progressão:
 | **Ex. 16-18** | Cálculos Alfanuméricos | 🟢🟡🔴 |
 | **Ex. 20** | Validação de Caracteres | 🟢🟡🟠🔴 |
 
-### ⚠️ Instruções Importantes
+### Instruções Importantes
 
 1. **Siga a Ordem**: Não pule exercícios - cada um prepara para o próximo
 2. **Resista à Tentação**: Tente resolver antes de consultar o gabarito
@@ -104,16 +104,16 @@ Este documento possui **7 conjuntos de exercícios** com progressão:
 4. **Pratique Escrevendo**: Fazer à mão aumenta memorização
 5. **Gabarito ao Final**: Disponível após conclusão de todos os exercícios
 
-### 🎯 O Que Você Será Capaz de Fazer
+### O Que Você Será Capaz de Fazer
 
 Após completar este documento seguindo a metodologia:
 
-✅ Calcular dígitos verificadores de qualquer CNPJ (numérico ou alfanumérico)  
-✅ Validar CNPJs manualmente e identificar erros  
-✅ Converter caracteres ASCII para valores de cálculo  
-✅ Criar casos de teste apropriados para sistemas  
-✅ Planejar estratégias de validação completas  
-✅ Ensinar outros profissionais sobre CNPJ  
+- Calcular dígitos verificadores de qualquer CNPJ (numérico ou alfanumérico)  
+- Validar CNPJs manualmente e identificar erros  
+- Converter caracteres ASCII para valores de cálculo  
+- Criar casos de teste apropriados para sistemas  
+- Planejar estratégias de validação completas  
+- Ensinar outros profissionais sobre CNPJ  
 
 **Agora você está pronto para começar os exercícios!**
 
@@ -208,7 +208,7 @@ O Módulo 11 funciona porque:
 
 ## 5. EXERCÍCIOS PRÁTICOS
 
-### 📚 Aplicação da Metodologia
+### Aplicação da Metodologia
 
 Este capítulo usa uma abordagem pedagógica que remove gradualmente o suporte, permitindo que você desenvolva autonomia:
 

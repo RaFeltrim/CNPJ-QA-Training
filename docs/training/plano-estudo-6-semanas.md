@@ -1,6 +1,6 @@
 # 4. Plano Híbrido de Estudo - 6 Semanas (Teoria + Prática)
 
-## 📚 Documento 4: Plano Integrado - Compreensão Teórica + Implementação Técnica
+## Documento 4: Plano Integrado - Compreensão Teórica + Implementação Técnica
 
 ---
 
@@ -8,9 +8,9 @@
 
 Este plano combina o melhor dos dois mundos:
 
-- **📖 Fundamentos Teóricos** (Semanas 1-2): Compreensão profunda do algoritmo através de exercícios manuais
-- **💻 Implementação Prática** (Semanas 3-4): Desenvolvimento de código e testes unitários
-- **🔧 Automação & Conformidade** (Semanas 5-6): Testes E2E, performance e compliance
+- **Fundamentos Teóricos** (Semanas 1-2): Compreensão profunda do algoritmo através de exercícios manuais
+- **Implementação Prática** (Semanas 3-4): Desenvolvimento de código e testes unitários
+- **Automação & Conformidade** (Semanas 5-6): Testes E2E, performance e compliance
 
 **Público-Alvo**: QA Pleno que deseja domínio completo (teoria + prática)
 
@@ -25,7 +25,7 @@ Este plano combina o melhor dos dois mundos:
 
 ## 2. FASE 1: FUNDAMENTOS TEÓRICOS (Semanas 1-2)
 
-### 📅 Semana 1 - Estrutura e Algoritmo Numérico
+### Semana 1 - Estrutura e Algoritmo Numérico
 
 **Objetivo**: Dominar o cálculo manual de dígitos verificadores
 
@@ -41,7 +41,7 @@ Este plano combina o melhor dos dois mundos:
 
 ---
 
-### 📅 Semana 2 - Formato Alfanumérico e Casos Especiais
+### Semana 2 - Formato Alfanumérico e Casos Especiais
 
 **Objetivo**: Dominar conversão ASCII e validações alfanuméricas
 
@@ -55,13 +55,13 @@ Este plano combina o melhor dos dois mundos:
 
 **Entregável da Semana**: 5 CNPJs alfanuméricos + documento comparativo numérico vs alfanumérico
 
-**🎯 Checkpoint Semana 2**: Você deve ser capaz de calcular **qualquer CNPJ** (numérico ou alfanumérico) manualmente sem consultar o guia.
+**Checkpoint Semana 2**: Você deve ser capaz de calcular **qualquer CNPJ** (numérico ou alfanumérico) manualmente sem consultar o guia.
 
 ---
 
 ## 3. FASE 2: IMPLEMENTAÇÃO PRÁTICA (Semanas 3-4)
 
-### 📅 Semana 3 - Implementação de Validadores
+### Semana 3 - Implementação de Validadores
 
 **Objetivo**: Transformar conhecimento teórico em código funcional
 
@@ -106,22 +106,22 @@ src/
 | **Sex** | Deploy + documentação de uso | Vercel/Netlify | Link público + guia de uso | 2h |
 
 **Features Implementadas**:
-- ✅ Máscara automática (XX.XXX.XXX/XXXX-XX)
-- ✅ Validação em tempo real
-- ✅ Suporte a formato numérico e alfanumérico
-- ✅ Feedback visual claro
-- ✅ Mensagens de erro específicas
-- ✅ Link para consulta oficial (com aviso de captcha)
+- Máscara automática (XX.XXX.XXX/XXXX-XX)
+- Validação em tempo real
+- Suporte a formato numérico e alfanumérico
+- Feedback visual claro
+- Mensagens de erro específicas
+- Link para consulta oficial (com aviso de captcha)
 
 **Entregável da Semana**: Aplicação web funcional + documentação de uso
 
-**🎯 Checkpoint Semana 4**: Você possui um validador completo e funcional, pronto para ser usado em projetos reais.
+**Checkpoint Semana 4**: Você possui um validador completo e funcional, pronto para ser usado em projetos reais.
 
 ---
 
 ## 4. FASE 3: AUTOMAÇÃO & CONFORMIDADE (Semanas 5-6)
 
-### 📅 Semana 5 - Testes Automatizados E2E
+### Semana 5 - Testes Automatizados E2E
 
 **Objetivo**: Garantir qualidade através de automação completa
 
@@ -155,7 +155,7 @@ Feature: Validação de CNPJ
 
 ---
 
-### 📅 Semana 6 - Performance, LGPD e Documentação Final
+### Semana 6 - Performance, LGPD e Documentação Final
 
 **Objetivo**: Garantir conformidade legal e performance
 
@@ -199,15 +199,15 @@ export default function() {
 ```
 
 **Documentação LGPD**:
-- ✅ Política de retenção de logs (30-90 dias)
-- ✅ Mascaramento de CNPJs em logs (XX.XXX.XXX/****-**)
-- ✅ Minimização de dados (não armazenar QSA sem necessidade)
-- ✅ Direito ao esquecimento (processo de exclusão)
-- ✅ Auditoria de acesso
+- Política de retenção de logs (30-90 dias)
+- Mascaramento de CNPJs em logs (XX.XXX.XXX/****-**)
+- Minimização de dados (não armazenar QSA sem necessidade)
+- Direito ao esquecimento (processo de exclusão)
+- Auditoria de acesso
 
 **Entregável da Semana**: Projeto completo com performance validada + conformidade LGPD
 
-**🎯 Checkpoint Final**: Você possui um projeto completo, testado, performático e em conformidade com LGPD, pronto para produção.
+**Checkpoint Final**: Você possui um projeto completo, testado, performático e em conformidade com LGPD, pronto para produção.
 
 ---
 
@@ -215,30 +215,30 @@ export default function() {
 
 Ao concluir as 6 semanas, você terá:
 
-### 📚 Conhecimento Teórico
-- ✅ Domínio completo do algoritmo Módulo 11
-- ✅ Capacidade de calcular DVs manualmente (numérico e alfanumérico)
-- ✅ Compreensão da legislação e histórico do CNPJ
-- ✅ Conhecimento sobre transição 2026-2028
+### Conhecimento Teórico
+- Domínio completo do algoritmo Módulo 11
+- Capacidade de calcular DVs manualmente (numérico e alfanumérico)
+- Compreensão da legislação e histórico do CNPJ
+- Conhecimento sobre transição 2026-2028
 
-### 💻 Implementação Técnica
-- ✅ Biblioteca TypeScript de validação (npm package)
-- ✅ Aplicação web funcional com interface
-- ✅ Testes unitários com cobertura > 95%
-- ✅ Testes E2E com Cypress + Robot Framework
-- ✅ Pipeline CI/CD automatizado
+### Implementação Técnica
+- Biblioteca TypeScript de validação (npm package)
+- Aplicação web funcional com interface
+- Testes unitários com cobertura > 95%
+- Testes E2E com Cypress + Robot Framework
+- Pipeline CI/CD automatizado
 
-### 🔒 Conformidade e Qualidade
-- ✅ Documentação LGPD completa
-- ✅ Logging seguro implementado
-- ✅ Testes de performance (P95 < 500ms)
-- ✅ Análise de bottlenecks e otimizações
+### Conformidade e Qualidade
+- Documentação LGPD completa
+- Logging seguro implementado
+- Testes de performance (P95 < 500ms)
+- Análise de bottlenecks e otimizações
 
-### 📊 Documentação
-- ✅ README técnico completo
-- ✅ Documentação de API (JSDoc)
-- ✅ Guia de uso para desenvolvedores
-- ✅ Apresentação executiva do projeto
+### Documentação
+- README técnico completo
+- Documentação de API (JSDoc)
+- Guia de uso para desenvolvedores
+- Apresentação executiva do projeto
 
 ---
 
