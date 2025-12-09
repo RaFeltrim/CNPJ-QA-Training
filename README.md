@@ -1,6 +1,6 @@
 # CNPJ Validator - Sistema de Validação e Treinamento para QA
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
@@ -12,6 +12,7 @@ Sistema completo de validação de CNPJ (Cadastro Nacional da Pessoa Jurídica) 
 Este repositório oferece:
 
 - **Biblioteca Python** para validação de CNPJ (numérico e alfanumérico)
+- **🆕 Integração com API da Receita Federal** para consulta de dados cadastrais
 - **Material de treinamento completo** com metodologia pedagógica Scaffolding
 - **33 casos de teste realistas** com massa de dados
 - **Guias técnicos detalhados** sobre legislação e algoritmo de validação
@@ -36,7 +37,7 @@ python examples/quick-start.py
 ### Uso Básico
 
 ```python
-from src.cnpj_validator import CNPJValidator
+from src.cnpj_validator import CNPJValidator, ReceitaFederalAPI
 
 # Validação rápida
 is_valid = CNPJValidator.is_valid("11.222.333/0001-81")
@@ -52,6 +53,24 @@ else:
     print(f"✗ Erros encontrados: {result['errors']}")
 ```
 
+### 🆕 Consulta na Receita Federal
+
+```python
+from src.cnpj_validator import ReceitaFederalAPI, ReceitaFederalAPIError
+
+# Consultar dados cadastrais
+api = ReceitaFederalAPI()
+
+try:
+    dados = api.consultar("11.222.333/0001-81")
+    print(f"Empresa: {dados.razao_social}")
+    print(f"Situação: {dados.situacao_cadastral}")
+    print(f"Ativa: {dados.is_ativa()}")
+    print(f"Capital Social: R$ {dados.capital_social:,.2f}")
+except ReceitaFederalAPIError as e:
+    print(f"Erro: {e}")
+```
+
 ## 📂 Estrutura do Projeto
 
 ```
@@ -60,6 +79,7 @@ CNPJ-QA-Training/
 ├── 📁 src/                           # Código fonte
 │   └── cnpj_validator/               # Módulo de validação
 │       ├── cnpj_validator.py         # Validador principal
+│       ├── receita_federal_api.py    # 🆕 Cliente API Receita Federal
 │       └── validators/               # Validadores específicos
 │
 ├── 📁 docs/                          # Documentação completa
@@ -83,6 +103,7 @@ CNPJ-QA-Training/
 │
 ├── 📁 examples/                      # Exemplos de uso
 │   ├── demo.py                       # Demonstração completa
+│   ├── demo_api_receita.py           # 🆕 Exemplos da API
 │   └── quick-start.py                # Exemplo rápido
 │
 └── 📁 scripts/                       # Scripts auxiliares
@@ -159,6 +180,15 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Métodos de conveniência (format, clean, get_info)
 - Tratamento robusto de erros
 
+### 🆕 API da Receita Federal
+
+- Consulta de dados cadastrais completos
+- Verificação de situação cadastral (ATIVA, BAIXADA, etc.)
+- Busca de quadro societário
+- Informações de CNAE, capital social, endereço
+- Suporte a BrasilAPI e ReceitaWS
+- Rate limiting automático e retry com backoff
+
 ## 📊 Casos de Teste
 
 33 casos de teste organizados por categoria:
@@ -174,7 +204,8 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 
 ## 🛠️ Tecnologias
 
-- **Python 3.7+** (linguagem principal)
+- **Python 3.8 - 3.12** (linguagem principal)
+- **requests** (requisições HTTP para API)
 - **pytest** (framework de testes)
 - **pytest-cov** (cobertura de código)
 - **GitHub Actions** (CI/CD)
@@ -197,7 +228,7 @@ Contribuições são bem-vindas! Para contribuir:
 - [x] Material de treinamento estruturado
 - [x] 33 casos de teste realistas
 - [x] CI/CD com GitHub Actions
-- [ ] Integração com API da Receita Federal
+- [x] **Integração com API da Receita Federal** ✅
 - [ ] Validador JavaScript/TypeScript
 - [ ] CLI (Command Line Interface)
 - [ ] Publicação no PyPI

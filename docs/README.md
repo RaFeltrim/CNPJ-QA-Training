@@ -2,6 +2,8 @@
 
 Este diretório contém toda a documentação técnica, guias de estudo e material de treinamento do projeto.
 
+> **Versão 2.0.0** - Agora com integração à API da Receita Federal!
+
 ## 📂 Estrutura
 
 ### 📘 Guides (Guias Técnicos)
@@ -28,6 +30,55 @@ Documentação sobre testes, casos de teste e metodologias:
 - **[casos-teste-realistas.md](testing/casos-teste-realistas.md)** - 33 casos de teste detalhados com massa de dados
 - **[shift-left-testing.md](testing/shift-left-testing.md)** - Guia de Shift Left Testing aplicado ao projeto
 - **[zephyr-integration.md](testing/zephyr-integration.md)** - Integração com Zephyr Scale (Jira)
+
+## 🆕 API da Receita Federal
+
+O projeto agora inclui integração com APIs públicas para consulta de dados cadastrais de empresas:
+
+### Classes Disponíveis
+
+| Classe | Descrição |
+|--------|-----------|
+| `ReceitaFederalAPI` | Cliente para consulta de CNPJs |
+| `CNPJData` | Dataclass com dados da empresa |
+| `ReceitaFederalAPIError` | Exceção para erros da API |
+
+### Exemplo Rápido
+
+```python
+from cnpj_validator import ReceitaFederalAPI
+
+api = ReceitaFederalAPI()
+dados = api.consultar("11.222.333/0001-81")
+
+print(f"Empresa: {dados.razao_social}")
+print(f"Situação: {dados.situacao_cadastral}")
+print(f"Ativa: {dados.is_ativa()}")
+```
+
+### Métodos da API
+
+| Método | Descrição |
+|--------|-----------|
+| `consultar(cnpj)` | Consulta completa de dados cadastrais |
+| `verificar_situacao(cnpj)` | Apenas situação cadastral |
+| `buscar_socios(cnpj)` | Lista do quadro societário |
+
+### Dados Retornados
+
+A classe `CNPJData` contém:
+
+- Razão social e nome fantasia
+- Situação cadastral e data
+- Data de abertura
+- Porte da empresa
+- Natureza jurídica
+- CNAE principal e secundários
+- Endereço completo
+- Telefone e email
+- Capital social
+- Quadro societário
+- Informações do Simples Nacional/MEI
 
 ## 🎯 Navegação Rápida
 
