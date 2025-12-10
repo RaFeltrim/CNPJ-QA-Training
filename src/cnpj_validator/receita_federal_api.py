@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class CNPJData:
     """
     Classe que representa os dados de um CNPJ consultado na Receita Federal.
-    
+
     Attributes:
         cnpj: Número do CNPJ
         razao_social: Razão social da empresa
@@ -102,7 +102,7 @@ class CNPJData:
         """Retorna o endereço formatado completo."""
         if not self.endereco:
             return ""
-        
+
         parts = []
         if self.endereco.get("logradouro"):
             parts.append(self.endereco["logradouro"])
@@ -118,14 +118,17 @@ class CNPJData:
             parts.append(f"/{self.endereco['uf']}")
         if self.endereco.get("cep"):
             parts.append(f"- CEP: {self.endereco['cep']}")
-        
+
         return " ".join(parts)
 
 
 class ReceitaFederalAPIError(Exception):
     """Exceção para erros na API da Receita Federal."""
-    
-    def __init__(self, message: str, status_code: Optional[int] = None, response: Optional[str] = None):
+
+    def __init__(
+        self, message: str, status_code: Optional[int] = None,
+        response: Optional[str] = None
+    ):
         super().__init__(message)
         self.status_code = status_code
         self.response = response
@@ -134,14 +137,14 @@ class ReceitaFederalAPIError(Exception):
 class ReceitaFederalAPI:
     """
     Cliente para consulta de CNPJ via APIs públicas.
-    
+
     Utiliza a API pública BrasilAPI como fonte de dados.
     A BrasilAPI agrega dados de múltiplas fontes oficiais.
-    
+
     Limites:
         - Rate limit: 3 requisições por minuto (API pública)
         - Timeout: 30 segundos por requisição
-    
+
     Example:
         >>> api = ReceitaFederalAPI()
         >>> dados = api.consultar("11222333000181")
@@ -164,7 +167,7 @@ class ReceitaFederalAPI:
     ):
         """
         Inicializa o cliente da API.
-        
+
         Args:
             api_preferida: Nome da API preferida ('brasilapi' ou 'receitaws')
             timeout: Timeout em segundos para requisições
@@ -203,13 +206,13 @@ class ReceitaFederalAPI:
     def _fazer_requisicao(self, url: str) -> dict:
         """
         Faz requisição HTTP para a API.
-        
+
         Args:
             url: URL completa da API
-            
+
         Returns:
             Dados JSON da resposta
-            
+
         Raises:
             ReceitaFederalAPIError: Em caso de erro na requisição
         """
@@ -235,7 +238,7 @@ class ReceitaFederalAPI:
                 error_body = e.read().decode("utf-8")
             except Exception:
                 pass
-            
+
             if e.code == 404:
                 raise ReceitaFederalAPIError(
                     "CNPJ não encontrado na base da Receita Federal",
@@ -378,7 +381,10 @@ class ReceitaFederalAPI:
             ),
             quadro_societario=socios,
             simples_nacional={
-                "optante": data.get("simples", {}).get("optante", False) if data.get("simples") else False,
+                "optante": (
+                    data.get("simples", {}).get("optante", False)
+                    if data.get("simples") else False
+                ),
             },
             mei=data.get("simei", {}).get("optante", False) if data.get("simei") else False,
             raw_data=data,
@@ -387,18 +393,18 @@ class ReceitaFederalAPI:
     def consultar(self, cnpj: str, usar_fallback: bool = True) -> CNPJData:
         """
         Consulta dados de um CNPJ na Receita Federal.
-        
+
         Args:
             cnpj: Número do CNPJ (com ou sem formatação)
             usar_fallback: Se True, tenta outras APIs em caso de erro
-            
+
         Returns:
             CNPJData com os dados da empresa
-            
+
         Raises:
             ReceitaFederalAPIError: Em caso de erro na consulta
             ValueError: Se o CNPJ for inválido
-            
+
         Example:
             >>> api = ReceitaFederalAPI()
             >>> dados = api.consultar("11.222.333/0001-81")
@@ -427,8 +433,9 @@ class ReceitaFederalAPI:
             for attempt in range(self.max_retries):
                 try:
                     self._respeitar_rate_limit()
-                    logger.info(f"Consultando CNPJ {cnpj_limpo} via {api_name} (tentativa {attempt + 1})")
-                    
+                    logger.info(
+                        f"Consultando CNPJ {cnpj_limpo} via {api_name} (tentativa {attempt + 1})")
+
                     data = self._fazer_requisicao(url)
 
                     # Verificar se a API retornou erro
@@ -476,10 +483,10 @@ class ReceitaFederalAPI:
     def verificar_situacao(self, cnpj: str) -> dict:
         """
         Verifica apenas a situação cadastral do CNPJ.
-        
+
         Args:
             cnpj: Número do CNPJ
-            
+
         Returns:
             Dicionário com situação cadastral:
             {
@@ -500,10 +507,10 @@ class ReceitaFederalAPI:
     def buscar_socios(self, cnpj: str) -> list:
         """
         Busca o quadro societário de um CNPJ.
-        
+
         Args:
             cnpj: Número do CNPJ
-            
+
         Returns:
             Lista de sócios
         """

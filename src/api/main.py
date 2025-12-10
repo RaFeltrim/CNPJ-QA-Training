@@ -5,6 +5,10 @@ Execute com: uvicorn src.api.main:app --reload
 Acesse o Swagger em: http://localhost:8000/docs
 """
 
+from cnpj_validator.validators.new_alphanumeric_validator import NewAlphanumericCNPJValidator
+from cnpj_validator.validators.numeric_validator import NumericCNPJValidator
+from cnpj_validator.validators.alphanumeric_validator import AlphanumericCNPJValidator
+from cnpj_validator import CNPJValidator, ReceitaFederalAPI, ReceitaFederalAPIError
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, Field
 from typing import Optional, List
@@ -15,11 +19,6 @@ import os
 
 # Adiciona o diretório src ao path para importações
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from cnpj_validator import CNPJValidator, ReceitaFederalAPI, ReceitaFederalAPIError
-from cnpj_validator.validators.alphanumeric_validator import AlphanumericCNPJValidator
-from cnpj_validator.validators.numeric_validator import NumericCNPJValidator
-from cnpj_validator.validators.new_alphanumeric_validator import NewAlphanumericCNPJValidator
 
 
 # =============================================================================
@@ -286,19 +285,19 @@ async def validate_cnpj(
 ):
     """
     Valida um CNPJ verificando os dígitos verificadores.
-    
+
     **Aceita com ou sem formatação.**
-    
+
     Exemplo: `?cnpj=11222333000181` ou `?cnpj=11.222.333/0001-81`
     """
     validator = CNPJValidator()
     result = validator.validate(cnpj)
-    
+
     tipo = None
     if result.get('valid'):
         info = validator.get_info(cnpj)
         tipo = TipoEstabelecimento.MATRIZ if info.get('is_matriz') else TipoEstabelecimento.FILIAL
-    
+
     return CNPJValidationResponse(
         valid=result.get('valid', False),
         cnpj_formatted=result.get('cnpj_formatted', ''),
@@ -315,21 +314,22 @@ async def validate_cnpj(
     response_model=BatchValidationResponse
 )
 async def validate_batch(
-    cnpjs: str = Query(..., description="CNPJs separados por vírgula (máx. 50)", example="11222333000181,11111111111111")
+    cnpjs: str = Query(..., description="CNPJs separados por vírgula (máx. 50)",
+                       example="11222333000181,11111111111111")
 ):
     """
     Valida múltiplos CNPJs em uma única requisição.
-    
+
     **Limite**: 50 CNPJs por requisição.
     """
     cnpj_list = [c.strip() for c in cnpjs.split(",")]
-    
+
     if len(cnpj_list) > 50:
         raise HTTPException(status_code=400, detail="Máximo de 50 CNPJs por requisição")
-    
+
     validator = CNPJValidator()
     results = []
-    
+
     for cnpj in cnpj_list:
         result = validator.validate(cnpj)
         results.append({
@@ -338,9 +338,9 @@ async def validate_batch(
             "cnpj_formatted": result.get('cnpj_formatted', ''),
             "errors": result.get('errors', [])
         })
-    
+
     valid_count = sum(1 for r in results if r['valid'])
-    
+
     return BatchValidationResponse(
         total=len(results),
         valid_count=valid_count,
@@ -364,7 +364,7 @@ async def validate_numeric(
 ):
     """
     Validação numérica detalhada com cálculo dos dígitos verificadores.
-    
+
     Retorna:
     - Se o tamanho está correto (14 dígitos)
     - Se os dígitos não são todos iguais
@@ -372,26 +372,27 @@ async def validate_numeric(
     """
     errors = []
     cnpj_clean = NumericCNPJValidator.remove_formatting(cnpj)
-    
+
     length_valid = NumericCNPJValidator.validate_length(cnpj_clean)
     not_all_same = NumericCNPJValidator.validate_all_same_digits(cnpj_clean)
-    
+
     first_digit = None
     second_digit = None
     check_digits_valid = False
-    
+
     if length_valid and cnpj_clean.isdigit():
         first_digit = NumericCNPJValidator.calculate_first_digit(cnpj_clean[:12])
         second_digit = NumericCNPJValidator.calculate_second_digit(cnpj_clean[:13])
         check_digits_valid = NumericCNPJValidator.validate_check_digits(cnpj_clean)
-    
+
     if not length_valid:
         errors.append(f"CNPJ deve ter 14 dígitos (possui {len(cnpj_clean)})")
     if not not_all_same:
         errors.append("Dígitos não podem ser todos iguais")
     if length_valid and not check_digits_valid:
-        errors.append(f"DV inválido: esperado {first_digit}{second_digit}, recebido {cnpj_clean[12:14]}")
-    
+        errors.append(
+            f"DV inválido: esperado {first_digit}{second_digit}, recebido {cnpj_clean[12:14]}")
+
     return NumericValidationResponse(
         valid=length_valid and not_all_same and check_digits_valid,
         length_valid=length_valid,
@@ -415,7 +416,7 @@ async def validate_format(
 ):
     """
     Validação de formato detalhada.
-    
+
     Verifica:
     - Formato XX.XXX.XXX/XXXX-XX
     - Separadores nas posições corretas
@@ -423,28 +424,33 @@ async def validate_format(
     - Ausência de espaços em branco
     """
     errors = []
-    
+
     format_result = AlphanumericCNPJValidator.validate_format(cnpj)
     separators_result = AlphanumericCNPJValidator.validate_separator_positions(cnpj)
     special_chars_result = AlphanumericCNPJValidator.validate_special_characters(cnpj)
     whitespace_result = AlphanumericCNPJValidator.validate_whitespace(cnpj)
     matriz_filial_result = AlphanumericCNPJValidator.validate_matriz_filial(cnpj)
-    
+
     format_valid = format_result.get('valid', False)
     separators_valid = separators_result.get('valid', False)
     special_chars_valid = special_chars_result.get('valid', False)
     whitespace_valid = whitespace_result.get('valid', False)
-    
-    for result in [format_result, separators_result, special_chars_result, whitespace_result, matriz_filial_result]:
+
+    all_results = [
+        format_result, separators_result, special_chars_result,
+        whitespace_result, matriz_filial_result
+    ]
+    for result in all_results:
         errors.extend(result.get('errors', []))
-    
+
     tipo = None
     if matriz_filial_result.get('valid'):
-        tipo = TipoEstabelecimento.MATRIZ if matriz_filial_result.get('is_matriz') else TipoEstabelecimento.FILIAL
-    
+        tipo = TipoEstabelecimento.MATRIZ if matriz_filial_result.get(
+            'is_matriz') else TipoEstabelecimento.FILIAL
+
     parts = AlphanumericCNPJValidator.extract_parts(cnpj)
     all_valid = all([format_valid, separators_valid, special_chars_valid, whitespace_valid])
-    
+
     return FormatValidationResponse(
         valid=all_valid,
         format_valid=format_valid,
@@ -469,7 +475,7 @@ async def validate_format(
 async def get_new_format_info():
     """
     Informações sobre o novo formato de CNPJ alfanumérico.
-    
+
     A Receita Federal definiu que a partir de 2026, CNPJs poderão
     conter letras (A-Z) nos 8 primeiros caracteres (raiz).
     """
@@ -503,23 +509,26 @@ async def validate_new_format(
 ):
     """
     Valida um CNPJ no novo formato alfanumérico.
-    
+
     **Formato**: `AA.AAA.AAA/NNNN-DD` ou `AAAAAAAANNNNDD`
-    
+
     - Raiz (8 chars): Letras A-Z e/ou números 0-9
     - Ordem (4 dígitos): Apenas números
     - DV (2 dígitos): Calculados com letras convertidas (A=10...Z=35)
     """
     result = NewAlphanumericCNPJValidator.validate(cnpj)
     cnpj_clean = NewAlphanumericCNPJValidator.remove_formatting(cnpj)
-    
-    root_valid = NewAlphanumericCNPJValidator.validate_root_chars(cnpj_clean).get('valid', False) if len(cnpj_clean) >= 8 else False
-    order_valid = NewAlphanumericCNPJValidator.validate_order_digits(cnpj_clean).get('valid', False) if len(cnpj_clean) >= 12 else False
-    
+
+    root_valid = NewAlphanumericCNPJValidator.validate_root_chars(
+        cnpj_clean).get('valid', False) if len(cnpj_clean) >= 8 else False
+    order_valid = NewAlphanumericCNPJValidator.validate_order_digits(
+        cnpj_clean).get('valid', False) if len(cnpj_clean) >= 12 else False
+
     dv_valid = False
     if root_valid and order_valid and len(cnpj_clean) == 14:
-        dv_valid = NewAlphanumericCNPJValidator.validate_check_digits(cnpj_clean).get('valid', False)
-    
+        dv_valid = NewAlphanumericCNPJValidator.validate_check_digits(
+            cnpj_clean).get('valid', False)
+
     return NewFormatValidationResponse(
         valid=result.get('valid', False),
         is_alphanumeric=result.get('is_alphanumeric', False),
@@ -541,29 +550,30 @@ async def validate_new_format(
     response_model=GenerateCNPJResponse
 )
 async def generate_new_format(
-    raiz: Optional[str] = Query(None, description="Raiz personalizada (8 chars)", example="ABCD1234", max_length=8)
+    raiz: Optional[str] = Query(
+        None, description="Raiz personalizada (8 chars)", example="ABCD1234", max_length=8)
 ):
     """
     Gera um CNPJ alfanumérico válido.
-    
+
     - **Sem raiz**: Gera aleatoriamente com letras e números
     - **Com raiz**: Usa a raiz informada e calcula os DVs
-    
+
     **Atenção**: CNPJs gerados são fictícios, apenas para testes.
     """
     if raiz:
         raiz_clean = raiz.upper().replace('.', '').replace('-', '').replace('/', '')
         if len(raiz_clean) > 8:
             raise HTTPException(status_code=400, detail="Raiz deve ter no máximo 8 caracteres")
-        
+
         invalid = [c for c in raiz_clean if c not in NewAlphanumericCNPJValidator.VALID_ROOT_CHARS]
         if invalid:
             raise HTTPException(status_code=400, detail=f"Caracteres inválidos: {invalid}")
-    
+
     cnpj_formatted = NewAlphanumericCNPJValidator.generate_valid_cnpj(raiz)
     cnpj_clean = NewAlphanumericCNPJValidator.remove_formatting(cnpj_formatted)
     validation = NewAlphanumericCNPJValidator.validate(cnpj_formatted)
-    
+
     return GenerateCNPJResponse(
         cnpj_formatted=cnpj_formatted,
         cnpj_clean=cnpj_clean,
@@ -582,30 +592,32 @@ async def calculate_dv(
 ):
     """
     Calcula os dígitos verificadores para uma base de CNPJ alfanumérico.
-    
+
     **Entrada**: 8 caracteres da raiz + 4 dígitos da ordem
-    
+
     **Saída**: Os 2 dígitos verificadores calculados
     """
     base_clean = NewAlphanumericCNPJValidator.remove_formatting(base)
-    
+
     if len(base_clean) < 12:
-        raise HTTPException(status_code=400, detail=f"Forneça 12 caracteres (raiz + ordem). Recebido: {len(base_clean)}")
-    
+        detail_msg = f"Forneça 12 caracteres (raiz + ordem). Recebido: {len(base_clean)}"
+        raise HTTPException(status_code=400, detail=detail_msg)
+
     base_clean = base_clean[:12]
-    
+
     root_result = NewAlphanumericCNPJValidator.validate_root_chars(base_clean)
     if not root_result.get('valid', False):
-        raise HTTPException(status_code=400, detail=f"Raiz inválida: {root_result.get('errors', [])}")
-    
+        raise HTTPException(
+            status_code=400, detail=f"Raiz inválida: {root_result.get('errors', [])}")
+
     if not base_clean[8:12].isdigit():
         raise HTTPException(status_code=400, detail="Ordem (posições 9-12) deve ser numérica")
-    
+
     dv1 = NewAlphanumericCNPJValidator.calculate_first_digit(base_clean)
     dv2 = NewAlphanumericCNPJValidator.calculate_second_digit(base_clean + str(dv1))
-    
+
     cnpj_complete = base_clean + str(dv1) + str(dv2)
-    
+
     return {
         "base": base_clean,
         "dv1": dv1,
@@ -631,16 +643,16 @@ async def consultar_cnpj(
 ):
     """
     Consulta dados cadastrais de um CNPJ na Receita Federal.
-    
+
     **Atenção**: Depende de API externa (BrasilAPI). Pode haver indisponibilidade.
     """
     if not CNPJValidator.is_valid(cnpj):
         raise HTTPException(status_code=400, detail="CNPJ inválido")
-    
+
     try:
         api = ReceitaFederalAPI()
         dados = api.consultar(cnpj)
-        
+
         return CNPJInfoResponse(
             cnpj=dados.cnpj,
             razao_social=dados.razao_social,
@@ -671,16 +683,16 @@ async def verificar_situacao(
 ):
     """
     Verifica rapidamente a situação cadastral de um CNPJ.
-    
+
     Situações possíveis: ATIVA, BAIXADA, INAPTA, SUSPENSA
     """
     if not CNPJValidator.is_valid(cnpj):
         raise HTTPException(status_code=400, detail="CNPJ inválido")
-    
+
     try:
         api = ReceitaFederalAPI()
         situacao = api.verificar_situacao(cnpj)
-        
+
         return {
             "cnpj": CNPJValidator.format(cnpj),
             "situacao": situacao.get("situacao", "Desconhecida"),
@@ -708,10 +720,11 @@ async def format_cnpj(
     Formata um CNPJ no padrão XX.XXX.XXX/XXXX-XX.
     """
     formatted = CNPJValidator.format(cnpj)
-    
+
     if not formatted:
-        raise HTTPException(status_code=400, detail="Não foi possível formatar. Verifique se possui 14 dígitos.")
-    
+        raise HTTPException(
+            status_code=400, detail="Não foi possível formatar. Verifique se possui 14 dígitos.")
+
     return {
         "original": cnpj,
         "formatted": formatted
@@ -728,25 +741,25 @@ async def generate_cnpj(
 ):
     """
     Gera um CNPJ numérico tradicional válido.
-    
+
     **Atenção**: CNPJs gerados são fictícios, apenas para testes.
     """
     import random
-    
+
     # Gera 8 dígitos da raiz
     raiz = ''.join([str(random.randint(0, 9)) for _ in range(8)])
-    
+
     # Define ordem (0001 para matriz, aleatório para filial)
     ordem = "0001" if tipo == "matriz" else f"{random.randint(2, 9999):04d}"
-    
+
     base = raiz + ordem
-    
+
     # Calcula DVs
     dv1 = NumericCNPJValidator.calculate_first_digit(base)
     dv2 = NumericCNPJValidator.calculate_second_digit(base + str(dv1))
-    
+
     cnpj = base + str(dv1) + str(dv2)
-    
+
     return {
         "cnpj": cnpj,
         "cnpj_formatted": CNPJValidator.format(cnpj),
