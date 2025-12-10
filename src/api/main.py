@@ -16,7 +16,7 @@ from cnpj_validator.validators.numeric_validator import NumericCNPJValidator
 from cnpj_validator.validators.alphanumeric_validator import AlphanumericCNPJValidator
 from cnpj_validator import CNPJValidator, ReceitaFederalAPI, ReceitaFederalAPIError
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List
 from enum import Enum
 
@@ -39,8 +39,8 @@ class CNPJValidationResponse(BaseModel):
     tipo: Optional[TipoEstabelecimento] = Field(None, description="Matriz ou Filial")
     errors: List[str] = Field(default=[], description="Erros encontrados")
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "valid": True,
                 "cnpj_formatted": "11.222.333/0001-81",
@@ -49,6 +49,7 @@ class CNPJValidationResponse(BaseModel):
                 "errors": []
             }
         }
+    )
 
 
 class NumericValidationResponse(BaseModel):
@@ -62,8 +63,8 @@ class NumericValidationResponse(BaseModel):
     cnpj_clean: str = Field(..., description="CNPJ apenas números")
     errors: List[str] = Field(default=[], description="Erros encontrados")
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "valid": True,
                 "length_valid": True,
@@ -75,6 +76,7 @@ class NumericValidationResponse(BaseModel):
                 "errors": []
             }
         }
+    )
 
 
 class FormatValidationResponse(BaseModel):
@@ -88,8 +90,8 @@ class FormatValidationResponse(BaseModel):
     parts: Optional[dict] = Field(None, description="Partes do CNPJ")
     errors: List[str] = Field(default=[], description="Erros encontrados")
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "valid": True,
                 "format_valid": True,
@@ -101,6 +103,7 @@ class FormatValidationResponse(BaseModel):
                 "errors": []
             }
         }
+    )
 
 
 class NewFormatValidationResponse(BaseModel):
@@ -116,8 +119,8 @@ class NewFormatValidationResponse(BaseModel):
     parts: Optional[dict] = Field(None, description="Partes do CNPJ")
     errors: List[str] = Field(default=[], description="Erros encontrados")
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "valid": True,
                 "is_alphanumeric": True,
@@ -131,6 +134,7 @@ class NewFormatValidationResponse(BaseModel):
                 "errors": []
             }
         }
+    )
 
 
 class GenerateCNPJResponse(BaseModel):
@@ -281,7 +285,7 @@ async def health_check():
     response_model=CNPJValidationResponse
 )
 async def validate_cnpj(
-    cnpj: str = Query(..., description="CNPJ a validar", example="11222333000181")
+    cnpj: str = Query(..., description="CNPJ a validar", examples=["11222333000181"])
 ):
     """
     Valida um CNPJ verificando os dígitos verificadores.
@@ -315,7 +319,7 @@ async def validate_cnpj(
 )
 async def validate_batch(
     cnpjs: str = Query(..., description="CNPJs separados por vírgula (máx. 50)",
-                       example="11222333000181,11111111111111")
+                       examples=["11222333000181,11111111111111"])
 ):
     """
     Valida múltiplos CNPJs em uma única requisição.
@@ -360,7 +364,7 @@ async def validate_batch(
     response_model=NumericValidationResponse
 )
 async def validate_numeric(
-    cnpj: str = Query(..., description="CNPJ (apenas números)", example="11222333000181")
+    cnpj: str = Query(..., description="CNPJ (apenas números)", examples=["11222333000181"])
 ):
     """
     Validação numérica detalhada com cálculo dos dígitos verificadores.
@@ -412,7 +416,7 @@ async def validate_numeric(
     response_model=FormatValidationResponse
 )
 async def validate_format(
-    cnpj: str = Query(..., description="CNPJ formatado", example="11.222.333/0001-81")
+    cnpj: str = Query(..., description="CNPJ formatado", examples=["11.222.333/0001-81"])
 ):
     """
     Validação de formato detalhada.
@@ -471,7 +475,7 @@ async def validate_format(
 )
 async def validate_alphanumeric(
     cnpj: str = Query(..., description="CNPJ alfanumérico ou numérico",
-                      example="AB.CDE.123/0001-45")
+                      examples=["AB.CDE.123/0001-45"])
 ):
     """
     Validação completa para CNPJs no novo formato alfanumérico (2026+).
@@ -619,7 +623,7 @@ async def validate_new_format(
 )
 async def generate_new_format(
     raiz: Optional[str] = Query(
-        None, description="Raiz personalizada (8 chars)", example="ABCD1234", max_length=8)
+        None, description="Raiz personalizada (8 chars)", examples=["ABCD1234"], max_length=8)
 ):
     """
     Gera um CNPJ alfanumérico válido.
@@ -660,7 +664,7 @@ async def generate_alphanumeric_cnpj(
     raiz: Optional[str] = Query(
         None,
         description="Raiz personalizada (até 8 caracteres A-Z/0-9)",
-        example="TESTECNP",
+        examples=["TESTECNP"],
         max_length=8
     ),
     only_letters: bool = Query(
@@ -758,7 +762,7 @@ async def generate_alphanumeric_cnpj(
     summary="Calcular DVs"
 )
 async def calculate_dv(
-    base: str = Query(..., description="12 caracteres (raiz + ordem)", example="ABCD12340001")
+    base: str = Query(..., description="12 caracteres (raiz + ordem)", examples=["ABCD12340001"])
 ):
     """
     Calcula os dígitos verificadores para uma base de CNPJ alfanumérico.
@@ -809,7 +813,7 @@ async def calculate_dv(
     response_model=CNPJInfoResponse
 )
 async def consultar_cnpj(
-    cnpj: str = Query(..., description="CNPJ a consultar", example="11222333000181")
+    cnpj: str = Query(..., description="CNPJ a consultar", examples=["11222333000181"])
 ):
     """
     Consulta dados cadastrais de um CNPJ na Receita Federal.
@@ -849,7 +853,7 @@ async def consultar_cnpj(
     summary="Verificar Situação Cadastral"
 )
 async def verificar_situacao(
-    cnpj: str = Query(..., description="CNPJ a verificar", example="11222333000181")
+    cnpj: str = Query(..., description="CNPJ a verificar", examples=["11222333000181"])
 ):
     """
     Verifica rapidamente a situação cadastral de um CNPJ.
@@ -883,8 +887,8 @@ async def verificar_situacao(
     tags=["Utilitários"],
     summary="Formatar CNPJ"
 )
-async def format_cnpj(
-    cnpj: str = Query(..., description="CNPJ a formatar (14 dígitos)", example="11222333000181")
+async def formatar_cnpj(
+    cnpj: str = Query(..., description="CNPJ a formatar (14 dígitos)", examples=["11222333000181"])
 ):
     """
     Formata um CNPJ no padrão XX.XXX.XXX/XXXX-XX.

@@ -129,7 +129,7 @@ class CNPJValidatorCLI:
         Returns:
             Dicionário com informações
         """
-        return self.validator.get_cnpj_info(cnpj)
+        return self.validator.get_info(cnpj)
     
     def batch_validate(self, file_path: str) -> List[dict]:
         """
