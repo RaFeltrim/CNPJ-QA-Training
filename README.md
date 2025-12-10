@@ -200,6 +200,42 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Identifica matriz (0001) ou filial (0002+)
 - Extrai partes do CNPJ (raiz, ordem, DV)
 
+### Novo Formato Alfanumérico (2026+) 🆕
+
+A partir de julho de 2026, a Receita Federal permitirá **letras (A-Z)** nos 8 primeiros caracteres do CNPJ:
+
+```
+Formato: AA.AAA.AAA/NNNN-DD
+         └───┬────┘ └─┬─┘└┬┘
+           Raiz    Ordem  DV
+        (alfanum.) (num.) (num.)
+```
+
+**Recursos disponíveis:**
+
+- **Validador completo** (`NewAlphanumericCNPJValidator`)
+- **Geração de CNPJs válidos** para testes
+- **Endpoints REST** para validação e geração
+- **Mock da API** para testes isolados
+- **Documentação técnica completa**
+
+```python
+from src.cnpj_validator.validators.new_alphanumeric_validator import (
+    NewAlphanumericCNPJValidator
+)
+
+# Validar CNPJ alfanumérico
+result = NewAlphanumericCNPJValidator.validate("AB.CDE.123/0001-45")
+print(f"Válido: {result['valid']}")
+print(f"Alfanumérico: {result['is_alphanumeric']}")
+
+# Gerar CNPJ alfanumérico para testes
+cnpj = NewAlphanumericCNPJValidator.generate_valid_cnpj("TESTECNP")
+print(f"CNPJ gerado: {cnpj}")  # TE.STE.CNP/0001-XX
+```
+
+**Documentação detalhada:** [📄 docs/guides/cnpj-alfanumerico-2026.md](docs/guides/cnpj-alfanumerico-2026.md)
+
 ### Validador Integrado
 
 - Validação completa (numérica + alfanumérica)
@@ -215,12 +251,37 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Informações de CNAE, capital social, endereço
 - Suporte a BrasilAPI e ReceitaWS
 - Rate limiting automático e retry com backoff
+- **Suporte a CNPJs alfanuméricos** (com mock para testes)
+
+---
+
+## API REST
+
+A API REST está disponível via FastAPI com documentação Swagger automática:
+
+```bash
+# Iniciar servidor
+uvicorn src.api.main:app --reload
+
+# Acessar Swagger
+http://localhost:8000/docs
+```
+
+### Endpoints Principais
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/validate` | Valida CNPJ numérico |
+| GET | `/api/v1/validate/alphanumeric` | Valida CNPJ alfanumérico |
+| GET | `/api/v1/generate/alphanumeric` | Gera CNPJ alfanumérico |
+| GET | `/api/v1/consulta` | Consulta dados na Receita Federal |
+| GET | `/health` | Health check |
 
 ---
 
 ## Casos de Teste
 
-33 casos de teste organizados por categoria:
+33+ casos de teste organizados por categoria:
 
 | Categoria | Quantidade | Prioridade |
 |-----------|------------|------------|
@@ -228,7 +289,7 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 | Formato Inválido | 8 | Alta |
 | Dígitos Verificadores | 7 | Alta |
 | Edge Cases | 6 | Média |
-| Alfanumérico | 4 | Média |
+| Alfanumérico (2026+) | 28 | Média |
 | Performance | 3 | Baixa |
 
 ---
@@ -236,7 +297,8 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 ## Tecnologias
 
 - **Python 3.8 - 3.12** (linguagem principal)
-- **requests** (requisições HTTP para API)
+- **FastAPI** (framework API REST)
+- **requests / httpx** (requisições HTTP)
 - **pytest** (framework de testes)
 - **pytest-cov** (cobertura de código)
 - **GitHub Actions** (CI/CD)
