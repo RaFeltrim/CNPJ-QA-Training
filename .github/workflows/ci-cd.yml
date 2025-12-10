@@ -34,20 +34,20 @@ jobs:
     
     - name: Verificar formatação (Black)
       run: |
-        black --check cnpj_validator/
+        black --check src/cnpj_validator/
     
     - name: Linting (Flake8)
       run: |
-        flake8 cnpj_validator/ --max-line-length=100 --statistics
+        flake8 src/cnpj_validator/ --max-line-length=100 --statistics
     
     - name: Análise estática (Pylint)
       run: |
-        pylint cnpj_validator/ --fail-under=8.0
+        pylint src/cnpj_validator/ --fail-under=8.0
       continue-on-error: true
     
     - name: Security scan (Bandit)
       run: |
-        bandit -r cnpj_validator/ -f json -o bandit-report.json
+        bandit -r src/cnpj_validator/ -f json -o bandit-report.json
       continue-on-error: true
     
     - name: Verificar vulnerabilidades (Safety)
@@ -152,7 +152,7 @@ jobs:
     
     - name: Executar testes com cobertura
       run: |
-        pytest --cov=cnpj_validator --cov-report=xml --cov-report=html --cov-report=term-missing --cov-fail-under=80
+        pytest --cov=src/cnpj_validator --cov-report=xml --cov-report=html --cov-report=term-missing --cov-fail-under=80
     
     - name: Upload cobertura para Codecov
       uses: codecov/codecov-action@v3
