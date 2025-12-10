@@ -8,12 +8,42 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 ### Added
-- Documentação de arquitetura (`docs/arquitetura/`)
-- Guia de contribuição (`CONTRIBUTING.md`)
-- Este arquivo de changelog (`CHANGELOG.md`)
+
+#### CNPJ Alfanumérico 2026
+- **Documentação Técnica Completa** (`docs/guides/cnpj-alfanumerico-2026.md`)
+  - Especificação do novo formato AA.AAA.AAA/NNNN-DD
+  - Tabela ASCII completa (A=10...Z=35)
+  - Algoritmo de cálculo do DV adaptado
+  - Cronograma de implementação (jul/2026)
+  - Exemplos de código e casos de teste
+
+- **Endpoints REST para CNPJ Alfanumérico**
+  - `GET /api/v1/validate/alphanumeric` - Validação completa
+  - `GET /api/v1/generate/alphanumeric` - Geração de CNPJs válidos
+  - `POST /api/v1/new-format/generate` - Geração com opções
+  - `GET /api/v1/new-format/calculate-dv` - Cálculo de DVs
+  - Suporte a parâmetros: `raiz`, `only_letters`, `only_numbers`, `filial`
+
+- **Mock da API da Receita Federal** (`tests/mocks/`)
+  - Classe `ReceitaFederalAPIMock` para testes isolados
+  - Dados de empresas pré-cadastradas (ativa, baixada, inapta)
+  - Geração consistente de dados fictícios
+  - Conversão para formato BrasilAPI
+
+- **Testes de Integração Alfanuméricos** (`tests/test_integration_alphanumeric.py`)
+  - 28 novos testes de integração
+  - Cobertura de Mock, Validador, API REST
+  - Testes de cenários realistas (abertura empresa, validação lote)
+  - Testes de performance (1000 CNPJs)
 
 ### Changed
-- Reorganização de arquivos legados para `docs/archive/`
+- `ReceitaFederalAPI._limpar_cnpj()` - Agora preserva letras para CNPJs alfanuméricos
+- `ReceitaFederalAPI._validar_cnpj_basico()` - Usa ambos validadores (numérico e alfanumérico)
+- Adicionado método `_is_cnpj_alfanumerico()` para detecção automática do tipo
+- Reorganizado imports em `src/api/main.py` (sys.path antes dos imports locais)
+
+### Dependencies
+- Adicionado `httpx` para testes com FastAPI TestClient
 
 ---
 
