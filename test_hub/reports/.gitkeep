@@ -1,0 +1,8 @@
+# Este diretório armazena os relatórios gerados pelo Test Hub
+# Os arquivos são gerados automaticamente após a execução dos testes
+
+# Formatos suportados:
+# - JSON: relatórios estruturados para integração
+# - Markdown: relatórios legíveis para documentação
+
+# Os arquivos seguem o padrão: report_YYYYMMDD_HHMMSS.{json|md}
