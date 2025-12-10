@@ -19,6 +19,7 @@ Documentação de decisões técnicas e estrutura do projeto:
 Documentação técnica e referências sobre CNPJ:
 
 - **[guia-completo-cnpj.md](guides/guia-completo-cnpj.md)** - Guia completo sobre CNPJ: história, estrutura, legislação e algoritmo de validação
+- **[cnpj-alfanumerico-2026.md](guides/cnpj-alfanumerico-2026.md)** - 🆕 **Guia técnico do novo formato alfanumérico (Jul/2026)**: tabela ASCII, algoritmo de DV, exemplos
 - **[guia-implementacao.md](guides/guia-implementacao.md)** - Guia prático de implementação com exemplos de código em múltiplas linguagens
 - **[glossario-referencias.md](guides/glossario-referencias.md)** - Glossário técnico completo e referências oficiais
 
@@ -38,6 +39,17 @@ Documentação sobre testes, casos de teste e metodologias:
 - **[casos-teste-realistas.md](testing/casos-teste-realistas.md)** - 33 casos de teste detalhados com massa de dados
 - **[shift-left-testing.md](testing/shift-left-testing.md)** - Guia de Shift Left Testing aplicado ao projeto
 - **[zephyr-integration.md](testing/zephyr-integration.md)** - Integração com Zephyr Scale (Jira)
+
+#### 🏛️ Shift Left Testing em Sistemas Legados
+
+Material completo sobre como aplicar Shift Left em sistemas legados, com foco na migração CNPJ 2026:
+
+- **[shift-left-legados/](testing/shift-left-legados/)** - 📚 Módulo completo de Shift Left em Legados
+  - **[01-fundamentos/](testing/shift-left-legados/01-fundamentos/)** - Base teórica sobre sistemas legados
+  - **[02-tecnicas/](testing/shift-left-legados/02-tecnicas/)** - Técnicas práticas (Golden Master, Strangler Fig, Feature Flags)
+  - **[03-exercicios/](testing/shift-left-legados/03-exercicios/)** - Exercícios progressivos (básico → avançado)
+  - **[04-gabarito/](testing/shift-left-legados/04-gabarito/)** - Respostas detalhadas dos exercícios
+  - **[05-caso-pratico-cnpj/](testing/shift-left-legados/05-caso-pratico-cnpj/)** - 🎯 Caso prático completo: migração CNPJ 2026
 
 ---
 
