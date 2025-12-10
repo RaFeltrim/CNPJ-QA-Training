@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+Test Hub - Página Principal
+================================================================================
+
+Este é o arquivo HTML principal do Test Hub.
+Ele define a estrutura da interface do usuário.
+
+CONCEITOS IMPORTANTES PARA APRENDIZADO:
+---------------------------------------
+
+1. HTML SEMÂNTICO: Usamos tags que descrevem o conteúdo
+   - <header>: cabeçalho da página
+   - <main>: conteúdo principal
+   - <section>: seção de conteúdo
+   - <article>: card/item independente
+
+2. DATA ATTRIBUTES: Atributos personalizados (data-*)
+   - Permitem armazenar dados no HTML
+   - JavaScript pode acessar facilmente
+
+3. ACESSIBILIDADE: 
+   - role="": define o papel do elemento
+   - aria-*: atributos para leitores de tela
+================================================================================
+-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hub - Central de Testes Automatizados</title>
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <!-- Favicon (ícone na aba do navegador) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+</head>
+<body>
+    <!-- 
+    ========================================
+    CABEÇALHO
+    ========================================
+    Contém o título e subtítulo do hub
+    -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">
+                <span class="header-icon">🧪</span>
+                Test Hub
+            </h1>
+            <p class="header-subtitle">Central de Testes Automatizados</p>
+        </div>
+    </header>
+
+    <!-- 
+    ========================================
+    CONTEÚDO PRINCIPAL
+    ========================================
+    Dividido em três áreas:
+    1. Lista de projetos (cards)
+    2. Painel de execução (progresso)
+    3. Área de relatório
+    -->
+    <main class="main-content">
+        
+        <!-- 
+        SEÇÃO 1: LISTA DE PROJETOS
+        Exibe os cards de cada projeto de teste cadastrado
+        -->
+        <section class="section projects-section" id="projects-section">
+            <h2 class="section-title">
+                <span class="section-icon">📁</span>
+                Projetos de Teste
+            </h2>
+            
+            <!-- Container onde os cards serão renderizados pelo JavaScript -->
+            <div class="projects-grid" id="projects-grid">
+                <!-- Os cards são carregados dinamicamente -->
+                <div class="loading-placeholder">
+                    <span class="loading-spinner"></span>
+                    <span>Carregando projetos...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        SEÇÃO 2: PAINEL DE EXECUÇÃO
+        Mostra o progresso quando testes estão rodando
+        Inicialmente oculto, aparece quando uma execução começa
+        -->
+        <section class="section execution-section hidden" id="execution-section">
+            <h2 class="section-title">
+                <span class="section-icon">⚙️</span>
+                Execução em Andamento
+            </h2>
+            
+            <!-- Cabeçalho do painel com nome do projeto e botão cancelar -->
+            <div class="execution-header">
+                <div class="execution-project-info">
+                    <span class="execution-project-icon" id="execution-project-icon">🔢</span>
+                    <span class="execution-project-name" id="execution-project-name">-</span>
+                </div>
+                <button class="btn btn-danger" id="btn-cancel" title="Cancelar execução">
+                    ✖️ Cancelar
+                </button>
+            </div>
+            
+            <!-- Barra de progresso geral -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-stats" id="progress-stats">
+                    <span class="stat stat-total">Total: <strong id="stat-total">0</strong></span>
+                    <span class="stat stat-passed">✅ <strong id="stat-passed">0</strong></span>
+                    <span class="stat stat-failed">❌ <strong id="stat-failed">0</strong></span>
+                    <span class="stat stat-skipped">⏭️ <strong id="stat-skipped">0</strong></span>
+                </div>
+            </div>
+            
+            <!-- Lista de suítes/arquivos de teste -->
+            <div class="suites-container">
+                <h3 class="suites-title">Suítes de Teste</h3>
+                <div class="suites-list" id="suites-list">
+                    <!-- Suítes são carregadas dinamicamente -->
+                </div>
+            </div>
+            
+            <!-- Console de saída (output do terminal) -->
+            <div class="console-container">
+                <div class="console-header">
+                    <span>📟 Output</span>
+                    <button class="btn btn-small" id="btn-toggle-console">Expandir</button>
+                </div>
+                <div class="console-output" id="console-output">
+                    <!-- Linhas de output serão adicionadas aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        SEÇÃO 3: ÁREA DE RELATÓRIO
+        Mostra o relatório consolidado após a execução
+        Inicialmente oculto, aparece quando a execução termina
+        -->
+        <section class="section report-section hidden" id="report-section">
+            <h2 class="section-title">
+                <span class="section-icon">📊</span>
+                Relatório de Resultados
+            </h2>
+            
+            <!-- Controles de exportação -->
+            <div class="report-actions">
+                <button class="btn btn-primary" id="btn-generate-report">
+                    📋 Gerar Relatório
+                </button>
+                <button class="btn btn-secondary" id="btn-export-json">
+                    📄 Exportar JSON
+                </button>
+                <button class="btn btn-secondary" id="btn-export-markdown">
+                    📝 Exportar Markdown
+                </button>
+            </div>
+            
+            <!-- Resumo do relatório -->
+            <div class="report-summary" id="report-summary">
+                <!-- Preenchido dinamicamente -->
+            </div>
+            
+            <!-- Lista de falhas (se houver) -->
+            <div class="failures-container hidden" id="failures-container">
+                <h3 class="failures-title">❌ Testes com Falha</h3>
+                <div class="failures-list" id="failures-list">
+                    <!-- Falhas são carregadas dinamicamente -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+    ========================================
+    RODAPÉ
+    ========================================
+    -->
+    <footer class="footer">
+        <p>Test Hub v1.0 | Desenvolvido para aprendizado de QA</p>
+    </footer>
+
+    <!-- 
+    ========================================
+    MODAL DE CONFIRMAÇÃO
+    ========================================
+    Modal genérico para confirmações
+    -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Confirmação</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo do modal -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    ========================================
+    TEMPLATE DO CARD DE PROJETO
+    ========================================
+    Template HTML usado para criar os cards dinamicamente
+    O JavaScript clona este template para cada projeto
+    -->
+    <template id="project-card-template">
+        <article class="project-card" data-project-id="">
+            <div class="card-header">
+                <span class="card-icon"></span>
+                <span class="card-status" title="Status"></span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title"></h3>
+                <p class="card-description"></p>
+                <div class="card-tags">
+                    <!-- Tags de tipos de teste -->
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary btn-run">
+                    ▶️ Executar Testes
+                </button>
+            </div>
+        </article>
+    </template>
+
+    <!-- 
+    ========================================
+    SCRIPTS
+    ========================================
+    Carregamos o JavaScript no final do body para garantir
+    que o HTML já foi carregado quando o script executar
+    -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
