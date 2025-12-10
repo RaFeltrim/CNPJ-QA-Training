@@ -8,6 +8,12 @@ Este diretório contém toda a documentação técnica, guias de estudo e materi
 
 ## Estrutura
 
+### Arquitetura
+
+Documentação de decisões técnicas e estrutura do projeto:
+
+- **[01-visao-geral.md](arquitetura/01-visao-geral.md)** - Visão geral da arquitetura, componentes, ADRs e fluxos
+
 ### Guides (Guias Técnicos)
 
 Documentação técnica e referências sobre CNPJ:
