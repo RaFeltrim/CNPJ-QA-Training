@@ -1,8 +1,10 @@
 # CNPJ Validator - Sistema de Validação e Treinamento para QA
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B%20%7C%203.12-blue)](https://www.python.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0%2B-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)]()
+[![Code Coverage](https://img.shields.io/badge/coverage-84.12%25-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-265%20passed-success)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 Sistema completo de validação de CNPJ (Cadastro Nacional da Pessoa Jurídica) desenvolvido especificamente para **treinamento de profissionais de Quality Assurance**, combinando implementação funcional com material didático estruturado.
@@ -14,9 +16,12 @@ Sistema completo de validação de CNPJ (Cadastro Nacional da Pessoa Jurídica) 
 Este repositório oferece:
 
 - **Biblioteca Python** para validação de CNPJ (numérico e alfanumérico)
+- **Biblioteca TypeScript/JavaScript** com suporte Node.js e navegadores
+- **CLI (Command Line Interface)** com 5 comandos para validação em lote
 - **Integração com API da Receita Federal** para consulta de dados cadastrais
+- **Pacote PyPI** pronto para publicação (cnpj-validator-br)
 - **Material de treinamento completo** com metodologia pedagógica Scaffolding
-- **33 casos de teste realistas** com massa de dados
+- **265+ testes automatizados** com 84.12% de cobertura
 - **Guias técnicos detalhados** sobre legislação e algoritmo de validação
 - **Integração CI/CD** com testes automatizados e Shift Left Testing
 
@@ -26,16 +31,32 @@ Este repositório oferece:
 
 ### Instalação
 
+#### Python (PyPI)
 ```bash
-# Clone o repositório
+# Instalar do PyPI (quando publicado)
+pip install cnpj-validator-br
+
+# Ou instalar do repositório
 git clone https://github.com/RaFeltrim/CNPJ-QA-Training.git
 cd CNPJ-QA-Training
-
-# Instale como pacote (opcional)
 pip install -e .
+```
 
-# Ou use diretamente
-python examples/quick-start.py
+#### TypeScript/JavaScript (npm)
+```bash
+# Instalar do npm (quando publicado)
+npm install cnpj-validator-br
+
+# Ou usar localmente
+cd src/typescript
+npm install
+npm run build
+```
+
+#### CLI
+```bash
+# Após instalar o pacote Python
+cnpj-validator --help
 ```
 
 ### Uso Básico
@@ -55,6 +76,47 @@ if result['valid']:
     print(f"CNPJ válido: {result['cnpj_formatted']}")
 else:
     print(f"Erros encontrados: {result['errors']}")
+```
+
+### Uso do CLI
+
+```bash
+# Validar CNPJ
+cnpj-validator validate 11.222.333/0001-81
+
+# Gerar CNPJ válido
+cnpj-validator generate
+cnpj-validator generate --count 5 --alphanumeric
+
+# Formatar CNPJ
+cnpj-validator format 11222333000181
+
+# Obter informações
+cnpj-validator info 11.222.333/0001-81
+
+# Validação em lote
+cnpj-validator batch cnpjs.txt --json
+```
+
+### Uso em TypeScript/JavaScript
+
+```typescript
+import { CNPJValidator } from 'cnpj-validator-br';
+
+const validator = new CNPJValidator();
+
+// Validar CNPJ
+if (validator.isValid('11.222.333/0001-81')) {
+  console.log('CNPJ válido!');
+}
+
+// Formatar
+const formatted = validator.format('11222333000181');
+console.log(formatted); // 11.222.333/0001-81
+
+// Gerar CNPJ
+const newCNPJ = validator.generate();
+console.log(newCNPJ);
 ```
 
 ### Consulta na Receita Federal
@@ -83,13 +145,19 @@ except ReceitaFederalAPIError as e:
 CNPJ-QA-Training/
 │
 ├── src/                              # Código fonte principal
-│   └── cnpj_validator/               # Módulo de validação (pacote instalável)
-│       ├── __init__.py               # Exports do módulo
-│       ├── cnpj_validator.py         # Validador principal
-│       ├── receita_federal_api.py    # Cliente API Receita Federal
-│       └── validators/               # Validadores específicos
-│           ├── numeric_validator.py
-│           └── alphanumeric_validator.py
+│   ├── cnpj_validator/               # Módulo Python (pacote instalável)
+│   │   ├── __init__.py               # Exports do módulo
+│   │   ├── cnpj_validator.py         # Validador principal
+│   │   ├── cli.py                    # Interface de linha de comando
+│   │   ├── receita_federal_api.py    # Cliente API Receita Federal
+│   │   └── validators/               # Validadores específicos
+│   │       ├── numeric_validator.py
+│   │       └── alphanumeric_validator.py
+│   └── typescript/                   # Módulo TypeScript/JavaScript
+│       ├── package.json              # Configuração npm
+│       ├── tsconfig.json             # Configuração TypeScript
+│       ├── src/index.ts              # Validador TypeScript
+│       └── tests/                    # Testes Jest
 │
 ├── docs/                             # Documentação completa
 │   ├── guides/                       # Guias técnicos
@@ -105,9 +173,10 @@ CNPJ-QA-Training/
 │       ├── shift-left-testing.md
 │       └── zephyr-integration.md
 │
-├── tests/                            # Testes automatizados (151+ testes)
+├── tests/                            # Testes automatizados (265+ testes)
 │   ├── test_numeric_validator.py     # Testes do validador numérico
 │   ├── test_alphanumeric_validator.py # Testes do validador alfanumérico
+│   ├── test_cli.py                   # Testes do CLI (43 testes)
 │   ├── test_integration.py           # Testes de integração
 │   └── test_receita_federal_api.py   # Testes da API
 │
@@ -123,7 +192,9 @@ CNPJ-QA-Training/
 ├── reports/                          # Relatórios de teste
 │   └── test_report.html              # Relatório HTML dos testes
 │
-├── setup.py                          # Configuração do pacote
+├── setup.py                          # Configuração do pacote (legacy)
+├── pyproject.toml                    # Configuração moderna (PEP 621)
+├── MANIFEST.in                       # Arquivos para distribuição
 ├── pytest.ini                        # Configuração do pytest
 └── requirements.txt                  # Dependências
 ```
@@ -154,6 +225,7 @@ CNPJ-QA-Training/
 
 ## Executar Testes
 
+### Testes Python
 ```bash
 # Windows
 scripts\run-tests.bat
@@ -164,6 +236,27 @@ chmod +x scripts/run-tests.sh
 
 # Ou via pytest diretamente
 pytest tests/ -v --cov=src/cnpj_validator
+
+# Com cobertura detalhada
+pytest --cov=src/cnpj_validator --cov-report=html --cov-report=term
+```
+
+### Testes TypeScript
+```bash
+cd src/typescript
+npm install
+npm test
+npm run test:coverage
+```
+
+### Testes do CLI
+```bash
+# Teste manual
+cnpj-validator validate 11.222.333/0001-81
+cnpj-validator generate --count 3
+
+# Testes automatizados
+pytest tests/test_cli.py -v
 ```
 
 ---
@@ -198,6 +291,22 @@ Este projeto utiliza **Scaffolding** (Andaimes Educacionais), técnica pedagógi
 - Valida formato XX.XXX.XXX/XXXX-XX
 - Verifica caracteres especiais
 - Identifica matriz (0001) ou filial (0002+)
+
+### CLI (Interface de Linha de Comando)
+
+- **validate**: Valida um ou mais CNPJs
+- **generate**: Gera CNPJs válidos (numéricos ou alfanuméricos)
+- **format**: Formata CNPJs para o padrão oficial
+- **info**: Exibe informações detalhadas de um CNPJ
+- **batch**: Validação em lote de arquivos
+
+### Validador TypeScript/JavaScript
+
+- Suporte completo para Node.js e navegadores
+- API idêntica à versão Python
+- Validação de CNPJs numéricos e alfanuméricos
+- Geração de CNPJs válidos
+- Testes completos com Jest
 - Extrai partes do CNPJ (raiz, ordem, DV)
 
 ### Novo Formato Alfanumérico (2026+) 🆕
@@ -326,9 +435,12 @@ Contribuições são bem-vindas! Para contribuir:
 - [x] 33 casos de teste realistas
 - [x] CI/CD com GitHub Actions
 - [x] Integração com API da Receita Federal
-- [ ] Validador JavaScript/TypeScript
-- [ ] CLI (Command Line Interface)
-- [ ] Publicação no PyPI
+- [x] **Validador JavaScript/TypeScript** (v2.0.0)
+- [x] **CLI (Command Line Interface)** (5 comandos)
+- [x] **Configuração para PyPI** (cnpj-validator-br)
+- [x] **265+ testes automatizados** (84.12% cobertura)
+- [ ] Publicação oficial no PyPI
+- [ ] Publicação oficial no npm
 
 ---
 
