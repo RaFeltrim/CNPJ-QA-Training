@@ -20,6 +20,12 @@ Documentação técnica e referências sobre CNPJ:
 
 Material didático estruturado para aprendizado progressivo:
 
+**Treinamento em Shift Left Testing** 🆕
+- **[shift-left-testing-guia-teorico.md](training/shift-left-testing-guia-teorico.md)** - Guia teórico completo de Shift Left Testing (teoria, práticas, métricas)
+- **[shift-left-testing-exercicios-praticos.md](training/shift-left-testing-exercicios-praticos.md)** - 18 exercícios progressivos com metodologia Scaffolding (4 níveis)
+- **[shift-left-testing-gabarito.md](training/shift-left-testing-gabarito.md)** - Gabarito completo com soluções detalhadas e explicações
+
+**Treinamento em CNPJ Validator**
 - **[exercicios-praticos.md](training/exercicios-praticos.md)** - 21 exercícios práticos com metodologia Scaffolding
 - **[gabarito-exercicios.md](training/gabarito-exercicios.md)** - Respostas detalhadas e explicações dos exercícios
 - **[plano-estudo-6-semanas.md](training/plano-estudo-6-semanas.md)** - Plano híbrido de estudo (teoria + prática) para 6 semanas
