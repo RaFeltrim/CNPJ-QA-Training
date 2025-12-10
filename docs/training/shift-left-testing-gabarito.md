@@ -1163,10 +1163,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     
@@ -1268,7 +1268,7 @@ Este gabarito fornece soluções detalhadas para os primeiros blocos de exercíc
 ---
 
 **Versão:** 1.0  
-**Última Atualização:** 2024  
+**Última Atualização:*** Dezembro 2024  
 **Autor:** Material de Treinamento QA Profissional  
 **Licença:** MIT - Uso Educacional
 

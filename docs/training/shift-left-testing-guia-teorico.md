@@ -315,10 +315,10 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
@@ -337,7 +337,7 @@ jobs:
     needs: unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Start services
         run: docker-compose up -d
@@ -352,7 +352,7 @@ jobs:
     needs: unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Run Bandit (SAST)
         run: bandit -r src/ -f json -o bandit-report.json
@@ -364,7 +364,7 @@ jobs:
     needs: [integration-tests, security-scan]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Run E2E tests
         run: pytest tests/e2e/ -v --browser=chromium
@@ -1457,7 +1457,7 @@ Após estudar este guia, você deve ser capaz de:
 ---
 
 **Versão:** 1.0  
-**Última Atualização:** 2024  
+**Última Atualização:*** Dezembro 2024  
 **Autor:** Material de Treinamento QA Profissional  
 **Licença:** MIT - Uso Educacional
 

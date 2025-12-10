@@ -333,6 +333,8 @@ Implemente uma função `is_valid_length(cnpj: str) -> bool` que retorna `True` 
 **1. RED - Escreva o teste (que vai falhar):**
 
 ```python
+from cnpj_validator import is_valid_length
+
 def test_is_valid_length_with_14_digits():
     # Arrange
     cnpj = "11222333000181"
@@ -525,10 +527,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     
@@ -1203,7 +1205,7 @@ Após completar estes exercícios:
 ---
 
 **Versão:** 1.0  
-**Última Atualização:** 2024  
+**Última Atualização:** Dezembro 2024  
 **Autor:** Material de Treinamento QA Profissional  
 **Licença:** MIT - Uso Educacional
 
