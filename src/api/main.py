@@ -5,6 +5,12 @@ Execute com: uvicorn src.api.main:app --reload
 Acesse o Swagger em: http://localhost:8000/docs
 """
 
+import sys
+import os
+
+# Adiciona o diretório src ao path para importações
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from cnpj_validator.validators.new_alphanumeric_validator import NewAlphanumericCNPJValidator
 from cnpj_validator.validators.numeric_validator import NumericCNPJValidator
 from cnpj_validator.validators.alphanumeric_validator import AlphanumericCNPJValidator
@@ -13,12 +19,6 @@ from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from enum import Enum
-
-import sys
-import os
-
-# Adiciona o diretório src ao path para importações
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 
 # =============================================================================
@@ -463,6 +463,74 @@ async def validate_format(
     )
 
 
+@app.get(
+    "/api/v1/validate/alphanumeric",
+    tags=["Validação Detalhada"],
+    summary="Validação Alfanumérica (2026+)",
+    response_model=NewFormatValidationResponse
+)
+async def validate_alphanumeric(
+    cnpj: str = Query(..., description="CNPJ alfanumérico ou numérico",
+                      example="AB.CDE.123/0001-45")
+):
+    """
+    Validação completa para CNPJs no novo formato alfanumérico (2026+).
+
+    **Compatível com formato numérico tradicional e novo formato alfanumérico.**
+
+    ### Formato Aceito
+    - **Raiz (8 chars)**: Letras A-Z e/ou números 0-9
+    - **Ordem (4 dígitos)**: Apenas números (0001=matriz, 0002+=filial)
+    - **DV (2 dígitos)**: Calculados com algoritmo Módulo 11 adaptado
+
+    ### Conversão de Letras para Cálculo do DV
+    - Números: 0-9 mantêm seu valor
+    - Letras: A=10, B=11, ..., Z=35
+
+    ### Exemplos Válidos
+    - `AB.CDE.123/0001-XX` (alfanumérico)
+    - `11.222.333/0001-81` (numérico tradicional)
+
+    ### Retorna
+    - Validação da raiz (caracteres permitidos)
+    - Validação da ordem (numérica)
+    - Validação dos DVs (cálculo correto)
+    - Identificação se é matriz ou filial
+    - Se contém letras (is_alphanumeric)
+    """
+    result = NewAlphanumericCNPJValidator.validate(cnpj)
+    cnpj_clean = NewAlphanumericCNPJValidator.remove_formatting(cnpj)
+
+    root_valid = False
+    order_valid = False
+    dv_valid = False
+
+    if len(cnpj_clean) >= 8:
+        root_result = NewAlphanumericCNPJValidator.validate_root_chars(cnpj_clean)
+        root_valid = root_result.get('valid', False)
+
+    if len(cnpj_clean) >= 12:
+        order_result = NewAlphanumericCNPJValidator.validate_order_digits(cnpj_clean)
+        order_valid = order_result.get('valid', False)
+
+    if root_valid and order_valid and len(cnpj_clean) == 14:
+        dv_result = NewAlphanumericCNPJValidator.validate_check_digits(cnpj_clean)
+        dv_valid = dv_result.get('valid', False)
+
+    return NewFormatValidationResponse(
+        valid=result.get('valid', False),
+        is_alphanumeric=result.get('is_alphanumeric', False),
+        is_matriz=result.get('is_matriz'),
+        cnpj_formatted=result.get('cnpj_formatted', ''),
+        cnpj_clean=result.get('cnpj_clean', ''),
+        root_valid=root_valid,
+        order_valid=order_valid,
+        dv_valid=dv_valid,
+        parts=result.get('parts'),
+        errors=result.get('errors', [])
+    )
+
+
 # =============================================================================
 # NOVO FORMATO (2026+)
 # =============================================================================
@@ -573,6 +641,108 @@ async def generate_new_format(
     cnpj_formatted = NewAlphanumericCNPJValidator.generate_valid_cnpj(raiz)
     cnpj_clean = NewAlphanumericCNPJValidator.remove_formatting(cnpj_formatted)
     validation = NewAlphanumericCNPJValidator.validate(cnpj_formatted)
+
+    return GenerateCNPJResponse(
+        cnpj_formatted=cnpj_formatted,
+        cnpj_clean=cnpj_clean,
+        raiz=cnpj_clean[:8],
+        is_alphanumeric=validation.get('is_alphanumeric', False)
+    )
+
+
+@app.get(
+    "/api/v1/generate/alphanumeric",
+    tags=["Utilitários"],
+    summary="Gerar CNPJ Alfanumérico",
+    response_model=GenerateCNPJResponse
+)
+async def generate_alphanumeric_cnpj(
+    raiz: Optional[str] = Query(
+        None,
+        description="Raiz personalizada (até 8 caracteres A-Z/0-9)",
+        example="TESTECNP",
+        max_length=8
+    ),
+    only_letters: bool = Query(
+        False,
+        description="Gerar raiz apenas com letras (A-Z)"
+    ),
+    only_numbers: bool = Query(
+        False,
+        description="Gerar raiz apenas com números (formato tradicional)"
+    ),
+    filial: bool = Query(
+        False,
+        description="Gerar como filial (ordem > 0001)"
+    )
+):
+    """
+    Gera um CNPJ alfanumérico válido para testes.
+
+    ### Opções de Geração
+
+    - **Sem parâmetros**: Gera CNPJ com raiz mista (letras + números)
+    - **raiz=ABCD1234**: Usa raiz personalizada e calcula DVs
+    - **only_letters=true**: Raiz apenas com letras (ex: ABCDEFGH)
+    - **only_numbers=true**: Formato numérico tradicional
+    - **filial=true**: Gera como filial (ordem aleatória > 0001)
+
+    ### Exemplos de Retorno
+
+    | Parâmetros | Exemplo |
+    |------------|---------|
+    | (nenhum) | `A1.B2C.3D4/0001-XX` |
+    | raiz=TESTECNP | `TE.STE.CNP/0001-XX` |
+    | only_letters=true | `AB.CDE.FGH/0001-XX` |
+    | only_numbers=true | `11.222.333/0001-81` |
+
+    ⚠️ **Atenção**: CNPJs gerados são fictícios, apenas para testes!
+    """
+    import random
+
+    # Validar conflito de parâmetros
+    if only_letters and only_numbers:
+        raise HTTPException(
+            status_code=400,
+            detail="Não é possível usar only_letters e only_numbers simultaneamente"
+        )
+
+    # Gerar raiz
+    if raiz:
+        raiz_clean = raiz.upper().replace('.', '').replace('-', '').replace('/', '')
+        if len(raiz_clean) > 8:
+            raise HTTPException(status_code=400, detail="Raiz deve ter no máximo 8 caracteres")
+        invalid = [c for c in raiz_clean if c not in NewAlphanumericCNPJValidator.VALID_ROOT_CHARS]
+        if invalid:
+            raise HTTPException(status_code=400, detail=f"Caracteres inválidos: {invalid}")
+    elif only_letters:
+        raiz_clean = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ', k=8))
+    elif only_numbers:
+        raiz_clean = ''.join(random.choices('0123456789', k=8))
+    else:
+        # Mista: garante pelo menos 1 letra e 1 número
+        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        raiz_clean = (
+            random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') +
+            random.choice('0123456789') +
+            ''.join(random.choices(chars, k=6))
+        )
+        raiz_clean = ''.join(random.sample(raiz_clean, len(raiz_clean)))  # Shuffle
+
+    # Gerar ordem
+    if filial:
+        ordem = f"{random.randint(2, 9999):04d}"
+    else:
+        ordem = "0001"
+
+    # Calcular DVs
+    base = raiz_clean.ljust(8, '0')[:8] + ordem
+    dv1 = NewAlphanumericCNPJValidator.calculate_first_digit(base)
+    dv2 = NewAlphanumericCNPJValidator.calculate_second_digit(base + str(dv1))
+
+    cnpj_clean = base + str(dv1) + str(dv2)
+    cnpj_formatted = NewAlphanumericCNPJValidator.format_cnpj(cnpj_clean)
+    validation = NewAlphanumericCNPJValidator.validate(cnpj_clean)
 
     return GenerateCNPJResponse(
         cnpj_formatted=cnpj_formatted,

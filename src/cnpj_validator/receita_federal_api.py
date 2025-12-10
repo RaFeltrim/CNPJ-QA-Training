@@ -182,16 +182,52 @@ class ReceitaFederalAPI:
         self._min_interval: float = 20.0  # 3 req/min = 1 req a cada 20s
 
     def _limpar_cnpj(self, cnpj: str) -> str:
-        """Remove formatação do CNPJ."""
+        """
+        Remove formatação do CNPJ, mantendo letras e números.
+
+        Compatível com o novo formato alfanumérico (2026+).
+        Converte letras para maiúsculas.
+        """
+        return "".join(c for c in cnpj if c.isalnum()).upper()
+
+    def _limpar_cnpj_numerico(self, cnpj: str) -> str:
+        """
+        Remove formatação do CNPJ, mantendo apenas números.
+
+        Para uso com APIs que ainda não suportam formato alfanumérico.
+        """
         return "".join(c for c in cnpj if c.isdigit())
 
+    def _is_alphanumeric_cnpj(self, cnpj: str) -> bool:
+        """Verifica se o CNPJ contém letras (formato alfanumérico)."""
+        cnpj_limpo = self._limpar_cnpj(cnpj)
+        return any(c.isalpha() for c in cnpj_limpo[:8])
+
     def _validar_cnpj_basico(self, cnpj: str) -> bool:
-        """Validação básica do CNPJ antes da consulta."""
+        """
+        Validação básica do CNPJ antes da consulta.
+
+        Compatível com formato numérico e alfanumérico.
+        """
         cnpj_limpo = self._limpar_cnpj(cnpj)
         if len(cnpj_limpo) != 14:
             return False
         if len(set(cnpj_limpo)) == 1:
             return False
+
+        # Validar estrutura: raiz (8 alfanum) + ordem (4 num) + dv (2 num)
+        raiz = cnpj_limpo[:8]
+        ordem = cnpj_limpo[8:12]
+        dv = cnpj_limpo[12:14]
+
+        # Raiz: A-Z e 0-9
+        if not all(c.isalnum() for c in raiz):
+            return False
+
+        # Ordem e DV: apenas números
+        if not ordem.isdigit() or not dv.isdigit():
+            return False
+
         return True
 
     def _respeitar_rate_limit(self) -> None:
@@ -415,6 +451,19 @@ class ReceitaFederalAPI:
         if not self._validar_cnpj_basico(cnpj_limpo):
             raise ValueError(f"CNPJ inválido: {cnpj}")
 
+        # Verificar se é alfanumérico
+        is_alphanumeric = self._is_alphanumeric_cnpj(cnpj_limpo)
+        if is_alphanumeric:
+            raise ReceitaFederalAPIError(
+                "CNPJs alfanuméricos ainda não são suportados pelas APIs externas. "
+                "A Receita Federal implementará suporte a partir de julho/2026. "
+                "Use o endpoint /api/v1/validate/alphanumeric para validação local.",
+                status_code=501  # Not Implemented
+            )
+
+        # Para consulta, usar apenas a parte numérica
+        cnpj_numerico = self._limpar_cnpj_numerico(cnpj)
+
         # Lista de APIs para tentar
         apis_para_tentar = [self.api_preferida]
         if usar_fallback:
@@ -428,7 +477,7 @@ class ReceitaFederalAPI:
             if api_name not in self.APIS:
                 continue
 
-            url = self.APIS[api_name].format(cnpj=cnpj_limpo)
+            url = self.APIS[api_name].format(cnpj=cnpj_numerico)
 
             for attempt in range(self.max_retries):
                 try:
