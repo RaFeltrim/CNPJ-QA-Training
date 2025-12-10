@@ -6,7 +6,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 import json
 
-from cnpj_validator.receita_federal_api import (
+from src.cnpj_validator.receita_federal_api import (
     ReceitaFederalAPI,
     CNPJData,
     ReceitaFederalAPIError,
@@ -143,7 +143,7 @@ class TestReceitaFederalAPI:
         with pytest.raises(ValueError):
             api.consultar("00000000000000")
 
-    @patch("cnpj_validator.receita_federal_api.urlopen")
+    @patch("src.cnpj_validator.receita_federal_api.urlopen")
     def test_consultar_sucesso_brasilapi(self, mock_urlopen):
         """Testa consulta bem-sucedida via BrasilAPI."""
         # Mock da resposta da API
@@ -182,7 +182,7 @@ class TestReceitaFederalAPI:
         assert resultado.situacao_cadastral == "ATIVA"
         assert resultado.is_ativa() is True
 
-    @patch("cnpj_validator.receita_federal_api.urlopen")
+    @patch("src.cnpj_validator.receita_federal_api.urlopen")
     def test_consultar_cnpj_nao_encontrado(self, mock_urlopen):
         """Testa consulta com CNPJ não encontrado."""
         from urllib.error import HTTPError
@@ -272,7 +272,7 @@ class TestIntegracaoValidadorAPI:
 
     def test_validar_e_consultar(self):
         """Testa fluxo de validar localmente e consultar na API."""
-        from cnpj_validator import CNPJValidator, ReceitaFederalAPI
+        from src.cnpj_validator import CNPJValidator, ReceitaFederalAPI
         
         validator = CNPJValidator()
         api = ReceitaFederalAPI()

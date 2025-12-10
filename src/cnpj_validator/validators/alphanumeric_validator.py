@@ -4,7 +4,6 @@ Responsável pela validação de padrões alfanuméricos e formatação
 """
 
 import re
-from datetime import datetime
 
 
 class AlphanumericCNPJValidator:
@@ -15,7 +14,7 @@ class AlphanumericCNPJValidator:
 
     # Padrão esperado: XX.XXX.XXX/XXXX-XX
     CNPJ_PATTERN = re.compile(r'^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$')
-    
+
     # Padrão sem formatação
     CNPJ_DIGITS_PATTERN = re.compile(r'^\d{14}$')
 
@@ -23,26 +22,26 @@ class AlphanumericCNPJValidator:
     def validate_format(cnpj: str) -> dict:
         """
         Valida se o CNPJ está no formato correto: XX.XXX.XXX/XXXX-XX.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação de formato
         """
         errors = []
-        
+
         if not isinstance(cnpj, str):
             errors.append("CNPJ deve ser uma string")
             return {'valid': False, 'errors': errors}
 
         if AlphanumericCNPJValidator.CNPJ_PATTERN.match(cnpj):
             return {'valid': True, 'errors': []}
-        
+
         if AlphanumericCNPJValidator.CNPJ_DIGITS_PATTERN.match(cnpj):
             errors.append("CNPJ sem formatação - esperado: XX.XXX.XXX/XXXX-XX")
             return {'valid': False, 'errors': errors}
-        
+
         errors.append("Formato inválido - esperado: XX.XXX.XXX/XXXX-XX")
         return {'valid': False, 'errors': errors}
 
@@ -50,41 +49,41 @@ class AlphanumericCNPJValidator:
     def validate_special_characters(cnpj: str) -> dict:
         """
         Valida se o CNPJ contém apenas caracteres válidos (números e . / -).
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação de caracteres
         """
         errors = []
-        
+
         if not isinstance(cnpj, str):
             errors.append("CNPJ deve ser uma string")
             return {'valid': False, 'errors': errors}
 
         valid_chars = set('0123456789./-')
         invalid_chars = set(cnpj) - valid_chars
-        
+
         if invalid_chars:
             errors.append(f"Caracteres inválidos encontrados: {', '.join(sorted(invalid_chars))}")
             return {'valid': False, 'errors': errors}
-        
+
         return {'valid': True, 'errors': []}
 
     @staticmethod
     def validate_separator_positions(cnpj: str) -> dict:
         """
         Valida se os separadores (. / -) estão nas posições corretas.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação de separadores
         """
         errors = []
-        
+
         if len(cnpj) != 18:
             errors.append(f"Tamanho incorreto: {len(cnpj)} caracteres, esperado: 18")
             return {'valid': False, 'errors': errors}
@@ -92,19 +91,19 @@ class AlphanumericCNPJValidator:
         # Verificar posições dos separadores
         if cnpj[2] != '.':
             errors.append(f"Esperado '.' na posição 3, encontrado '{cnpj[2]}'")
-        
+
         if cnpj[6] != '.':
             errors.append(f"Esperado '.' na posição 7, encontrado '{cnpj[6]}'")
-        
+
         if cnpj[10] != '/':
             errors.append(f"Esperado '/' na posição 11, encontrado '{cnpj[10]}'")
-        
+
         if cnpj[15] != '-':
             errors.append(f"Esperado '-' na posição 16, encontrado '{cnpj[15]}'")
 
         if errors:
             return {'valid': False, 'errors': errors}
-        
+
         return {'valid': True, 'errors': []}
 
     @staticmethod
@@ -112,29 +111,29 @@ class AlphanumericCNPJValidator:
         """
         Valida o código de matriz/filial (posições 9-12).
         0001 = Matriz, 0002+ = Filiais
-        
+
         Args:
             cnpj: String com CNPJ formatado
-            
+
         Returns:
             Dicionário com informações sobre matriz/filial
         """
         errors = []
         info = {}
-        
+
         if not AlphanumericCNPJValidator.CNPJ_PATTERN.match(cnpj):
             errors.append("CNPJ deve estar formatado corretamente")
             return {'valid': False, 'errors': errors, 'info': {}}
 
         # Extrair código de matriz/filial (posições 11-14 no formato XX.XXX.XXX/XXXX-XX)
         filial_code = cnpj[11:15]
-        
+
         if not filial_code.isdigit():
             errors.append(f"Código de matriz/filial inválido: {filial_code}")
             return {'valid': False, 'errors': errors, 'info': {}}
 
         filial_number = int(filial_code)
-        
+
         if filial_number == 0:
             errors.append("Código de matriz/filial não pode ser 0000")
             info['type'] = 'inválido'
@@ -156,25 +155,25 @@ class AlphanumericCNPJValidator:
     def validate_whitespace(cnpj: str) -> dict:
         """
         Valida se há espaços em branco indesejados no CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação de espaços
         """
         errors = []
         warnings = []
-        
+
         if cnpj != cnpj.strip():
             warnings.append("CNPJ contém espaços no início ou fim")
-        
+
         if ' ' in cnpj:
             errors.append("CNPJ contém espaços em branco")
-        
+
         if '\t' in cnpj:
             errors.append("CNPJ contém tabulações")
-        
+
         if '\n' in cnpj or '\r' in cnpj:
             errors.append("CNPJ contém quebras de linha")
 
@@ -188,10 +187,10 @@ class AlphanumericCNPJValidator:
     def extract_parts(cnpj: str) -> dict:
         """
         Extrai as partes do CNPJ formatado.
-        
+
         Args:
             cnpj: String com CNPJ formatado
-            
+
         Returns:
             Dicionário com as partes do CNPJ
         """
@@ -213,16 +212,16 @@ class AlphanumericCNPJValidator:
     def validate(cnpj: str) -> dict:
         """
         Realiza validação completa alfanumérica do CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado completo da validação alfanumérica
         """
         all_errors = []
         all_warnings = []
-        
+
         if not cnpj:
             return {
                 'valid': False,
@@ -234,7 +233,7 @@ class AlphanumericCNPJValidator:
         whitespace_result = AlphanumericCNPJValidator.validate_whitespace(cnpj)
         all_errors.extend(whitespace_result['errors'])
         all_warnings.extend(whitespace_result.get('warnings', []))
-        
+
         cnpj_trimmed = cnpj.strip()
 
         # Validação de caracteres especiais

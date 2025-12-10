@@ -21,11 +21,11 @@ class CNPJValidator:
     def validate(self, cnpj: str, validate_format: bool = True) -> dict:
         """
         Realiza validação completa do CNPJ (numérica e alfanumérica).
-        
+
         Args:
             cnpj: String com CNPJ formatado ou não
             validate_format: Se True, valida também o formato alfanumérico
-            
+
         Returns:
             Dicionário com resultado completo da validação:
             {
@@ -73,16 +73,17 @@ class CNPJValidator:
                 result['warnings'].append("CNPJ fornecido sem formatação")
 
             result['alphanumeric_validation'] = alphanumeric_result
-            
+
             if not alphanumeric_result['valid']:
                 result['errors'].extend(alphanumeric_result['errors'])
-            
+
             if alphanumeric_result.get('warnings'):
                 result['warnings'].extend(alphanumeric_result['warnings'])
 
         # Definir se é válido
         if validate_format:
-            result['valid'] = numeric_result['valid'] and result['alphanumeric_validation'].get('valid', False)
+            result['valid'] = numeric_result['valid'] and result['alphanumeric_validation'].get(
+                'valid', False)
         else:
             result['valid'] = numeric_result['valid']
 
@@ -91,10 +92,10 @@ class CNPJValidator:
     def validate_numeric_only(self, cnpj: str) -> dict:
         """
         Realiza apenas validação numérica do CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação numérica
         """
@@ -103,10 +104,10 @@ class CNPJValidator:
     def validate_alphanumeric_only(self, cnpj: str) -> dict:
         """
         Realiza apenas validação alfanumérica do CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com resultado da validação alfanumérica
         """
@@ -115,27 +116,27 @@ class CNPJValidator:
     def format(self, cnpj: str) -> str:
         """
         Formata o CNPJ no padrão XX.XXX.XXX/XXXX-XX.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             String com CNPJ formatado ou mensagem de erro
         """
         validation = self.numeric_validator.validate(cnpj)
-        
+
         if not validation['valid']:
             return f"Erro: {', '.join(validation['errors'])}"
-        
+
         return self.numeric_validator.format_cnpj(validation['cnpj_clean'])
 
     def clean(self, cnpj: str) -> str:
         """
         Remove formatação do CNPJ, retornando apenas os números.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             String com apenas os números do CNPJ
         """
@@ -144,15 +145,15 @@ class CNPJValidator:
     def get_info(self, cnpj: str) -> dict:
         """
         Obtém informações detalhadas sobre o CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             Dicionário com informações do CNPJ
         """
         validation = self.validate(cnpj, validate_format=True)
-        
+
         if not validation['valid']:
             return {
                 'valid': False,
@@ -180,10 +181,10 @@ class CNPJValidator:
     def is_valid(cnpj: str) -> bool:
         """
         Método de conveniência para validação rápida.
-        
+
         Args:
             cnpj: String com CNPJ
-            
+
         Returns:
             True se o CNPJ é válido, False caso contrário
         """

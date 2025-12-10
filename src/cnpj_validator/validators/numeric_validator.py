@@ -16,10 +16,10 @@ class NumericCNPJValidator:
     def remove_formatting(cnpj: str) -> str:
         """
         Remove formatação do CNPJ (pontos, traços e barras).
-        
+
         Args:
             cnpj: String com CNPJ formatado ou não
-            
+
         Returns:
             String contendo apenas os números do CNPJ
         """
@@ -31,10 +31,10 @@ class NumericCNPJValidator:
     def validate_length(cnpj: str) -> bool:
         """
         Valida se o CNPJ possui exatamente 14 dígitos.
-        
+
         Args:
             cnpj: String com CNPJ sem formatação
-            
+
         Returns:
             True se possui 14 dígitos, False caso contrário
         """
@@ -45,10 +45,10 @@ class NumericCNPJValidator:
         """
         Verifica se todos os dígitos são iguais (CNPJs inválidos conhecidos).
         Exemplos: 00000000000000, 11111111111111, etc.
-        
+
         Args:
             cnpj: String com CNPJ sem formatação
-            
+
         Returns:
             True se todos os dígitos são diferentes, False se são todos iguais
         """
@@ -58,10 +58,10 @@ class NumericCNPJValidator:
     def calculate_first_digit(cnpj: str) -> int:
         """
         Calcula o primeiro dígito verificador do CNPJ.
-        
+
         Args:
             cnpj: String com os primeiros 12 dígitos do CNPJ
-            
+
         Returns:
             Primeiro dígito verificador calculado
         """
@@ -74,10 +74,10 @@ class NumericCNPJValidator:
     def calculate_second_digit(cnpj: str) -> int:
         """
         Calcula o segundo dígito verificador do CNPJ.
-        
+
         Args:
             cnpj: String com os primeiros 13 dígitos do CNPJ
-            
+
         Returns:
             Segundo dígito verificador calculado
         """
@@ -90,10 +90,10 @@ class NumericCNPJValidator:
     def validate_check_digits(cnpj: str) -> bool:
         """
         Valida os dígitos verificadores do CNPJ.
-        
+
         Args:
             cnpj: String com CNPJ completo (14 dígitos)
-            
+
         Returns:
             True se os dígitos verificadores são válidos, False caso contrário
         """
@@ -109,10 +109,10 @@ class NumericCNPJValidator:
     def validate(cnpj: str) -> dict:
         """
         Realiza validação completa do CNPJ numérico.
-        
+
         Args:
             cnpj: String com CNPJ formatado ou não
-            
+
         Returns:
             Dicionário com resultado da validação:
             {
@@ -122,7 +122,7 @@ class NumericCNPJValidator:
             }
         """
         errors = []
-        
+
         if not cnpj:
             errors.append("CNPJ não pode ser vazio")
             return {'valid': False, 'cnpj_clean': '', 'errors': errors}
@@ -155,16 +155,20 @@ class NumericCNPJValidator:
     def format_cnpj(cnpj: str) -> str:
         """
         Formata o CNPJ no padrão XX.XXX.XXX/XXXX-XX.
-        
+
         Args:
             cnpj: String com CNPJ sem formatação (14 dígitos)
-            
+
         Returns:
             String com CNPJ formatado ou vazio se inválido
         """
         cnpj_clean = NumericCNPJValidator.remove_formatting(cnpj)
-        
+
         if len(cnpj_clean) != 14 or not cnpj_clean.isdigit():
             return ""
-        
-        return f"{cnpj_clean[:2]}.{cnpj_clean[2:5]}.{cnpj_clean[5:8]}/{cnpj_clean[8:12]}-{cnpj_clean[12:]}"
+
+        parts = [
+            cnpj_clean[:2], cnpj_clean[2:5], cnpj_clean[5:8],
+            cnpj_clean[8:12], cnpj_clean[12:]
+        ]
+        return f"{parts[0]}.{parts[1]}.{parts[2]}/{parts[3]}-{parts[4]}"
