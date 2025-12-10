@@ -140,9 +140,12 @@ CNPJ-QA-Training/
 
 ### Para QA Profissionais
 
-1. **[Casos de Teste Realistas](docs/testing/casos-teste-realistas.md)** - 33 casos de teste detalhados
-2. **[Shift Left Testing](docs/testing/shift-left-testing.md)** - Metodologia aplicada
-3. **[Plano de Estudo 6 Semanas](docs/training/plano-estudo-6-semanas.md)** - Roteiro completo
+1. **[Shift Left Testing - Guia Teórico](docs/training/shift-left-testing-guia-teorico.md)** 🆕 - Guia completo de Shift Left Testing
+2. **[Shift Left Testing - Exercícios](docs/training/shift-left-testing-exercicios-praticos.md)** 🆕 - 18 exercícios práticos progressivos
+3. **[Shift Left Testing - Gabarito](docs/training/shift-left-testing-gabarito.md)** 🆕 - Soluções detalhadas com explicações
+4. **[Casos de Teste Realistas](docs/testing/casos-teste-realistas.md)** - 33 casos de teste detalhados
+5. **[Shift Left Testing (Projeto)](docs/testing/shift-left-testing.md)** - Metodologia aplicada ao projeto
+6. **[Plano de Estudo 6 Semanas](docs/training/plano-estudo-6-semanas.md)** - Roteiro completo
 
 ### Para Desenvolvedores
 
