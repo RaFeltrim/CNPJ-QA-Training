@@ -1457,7 +1457,7 @@ Após estudar este guia, você deve ser capaz de:
 ---
 
 **Versão:** 1.0  
-**Última Atualização:*** Dezembro 2024  
+**Última Atualização:** Dezembro 2024  
 **Autor:** Material de Treinamento QA Profissional  
 **Licença:** MIT - Uso Educacional
 
