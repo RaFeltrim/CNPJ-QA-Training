@@ -1,0 +1,14 @@
+# Dependências do Test Hub
+# =======================
+
+# Flask: Framework web minimalista para Python
+# Usamos para criar o servidor HTTP e as rotas da API
+flask>=2.3.0
+
+# Flask-CORS: Permite requisições de diferentes origens
+# Necessário se o frontend estiver em domínio diferente
+flask-cors>=4.0.0
+
+# Python-dotenv: Carrega variáveis de ambiente de arquivos .env
+# Útil para configurações sensíveis (não é obrigatório)
+python-dotenv>=1.0.0
