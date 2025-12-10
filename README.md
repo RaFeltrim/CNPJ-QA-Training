@@ -196,8 +196,65 @@ CNPJ-QA-Training/
 ├── pyproject.toml                    # Configuração moderna (PEP 621)
 ├── MANIFEST.in                       # Arquivos para distribuição
 ├── pytest.ini                        # Configuração do pytest
-└── requirements.txt                  # Dependências
+├── requirements.txt                  # Dependências
+│
+└── test_hub/                         # 🆕 Hub de Testes Automatizados
+    ├── app.py                        # Servidor Flask
+    ├── config/projects.json          # Configuração de projetos
+    ├── services/                     # Serviços de execução e relatórios
+    ├── static/                       # CSS e JavaScript
+    ├── templates/                    # HTML
+    └── reports/                      # Relatórios gerados
 ```
+
+---
+
+## 🧪 Test Hub - Central de Testes
+
+O **Test Hub** é uma aplicação web que centraliza a execução e monitoramento de testes automatizados.
+
+### Funcionalidades
+
+- 📁 **Cards de Projetos**: Visualize todos os projetos de teste
+- ▶️ **Execução com 1 clique**: Rode todos os testes de um projeto
+- 📊 **Progresso em tempo real**: Acompanhe a execução
+- 📋 **Relatórios**: Gere relatórios em JSON e Markdown
+
+### Como usar
+
+```bash
+# 1. Instalar dependências
+cd test_hub
+pip install -r requirements.txt
+
+# 2. Iniciar o servidor
+python app.py
+
+# 3. Acessar no navegador
+# http://localhost:5050
+```
+
+### Screenshot
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  🧪 Test Hub - Central de Testes Automatizados         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────────┐                                   │
+│  │ 🔢 Validador    │                                   │
+│  │    de CNPJ      │                                   │
+│  │                 │                                   │
+│  │ unit integration│                                   │
+│  │ api  cli        │                                   │
+│  │                 │                                   │
+│  │ [▶️ Executar]    │                                   │
+│  └─────────────────┘                                   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+Veja a [documentação completa do Test Hub](test_hub/README.md).
 
 ---
 

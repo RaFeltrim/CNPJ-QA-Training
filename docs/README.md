@@ -2,7 +2,15 @@
 
 Este diretório contém toda a documentação técnica, guias de estudo e material de treinamento do projeto.
 
-**Versão 2.0.0** - Inclui integração à API da Receita Federal.
+**Versão 2.0.0** - Inclui integração à API da Receita Federal e Test Hub.
+
+---
+
+## 🚀 Jornada de Aprendizado
+
+> **Novo!** Confira o documento que demonstra a evolução completa deste projeto:
+
+📄 **[JORNADA-APRENDIZADO.md](JORNADA-APRENDIZADO.md)** - Da teoria de CNPJ ao Hub de Testes Automatizados
 
 ---
 
