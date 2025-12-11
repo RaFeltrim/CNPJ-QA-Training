@@ -1,0 +1,21 @@
+{
+  "name": "playwright-e2e",
+  "version": "1.0.0",
+  "description": "E2E tests with Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:dashboard": "playwright test tests/dashboard.spec.ts",
+    "test:filters": "playwright test tests/filters.spec.ts",
+    "test:export": "playwright test tests/export.spec.ts",
+    "test:realtime": "playwright test tests/realtime-update.spec.ts",
+    "test:all": "playwright test",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "codegen": "playwright codegen http://localhost:5173",
+    "show-report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
